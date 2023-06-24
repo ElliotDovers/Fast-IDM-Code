@@ -10,3 +10,5 @@ Contains the three simulation studies explored in the paper:
 
 ## APPLICATION TO DATA
 Contains `R` scripts to analyse 29 species of Flora from the `disdat` package - see Elith et al., 2020
+
+see additional README files within subfolders for further details
