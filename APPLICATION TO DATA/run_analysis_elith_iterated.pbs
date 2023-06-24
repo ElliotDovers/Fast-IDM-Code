@@ -1,0 +1,13 @@
+#!/bin/bash
+	
+#PBS -N IDM_flora_elith
+#PBS -l mem=19gb
+#PBS -l walltime=11:59:59
+#PBS -J 1-29
+
+cd $HOME/Data_Integration
+
+module purge
+module add r/4.2.2
+
+Rscript elith_data_analysis_iterated.R

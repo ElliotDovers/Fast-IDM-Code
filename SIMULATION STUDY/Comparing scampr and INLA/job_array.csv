@@ -1,0 +1,1001 @@
+"bias_range","env_range","lat_range","fit_model","quad","n_pred","sim","job"
+29,15,25,"INLA PA","full","full",1,1
+29,15,25,"INLA PO","full","full",1,2
+29,15,25,"INLA IDM","full","full",1,3
+29,15,25,"SCAMPR","full","full",1,4
+29,15,25,"SCAMPR FIXED","full","full",1,5
+29,15,25,"INLA PA","mesh","full",1,6
+29,15,25,"INLA PO","mesh","full",1,7
+29,15,25,"INLA IDM","mesh","full",1,8
+29,15,25,"SCAMPR","mesh","full",1,9
+29,15,25,"SCAMPR FIXED","mesh","full",1,10
+29,15,25,"INLA PA","full","full",2,11
+29,15,25,"INLA PO","full","full",2,12
+29,15,25,"INLA IDM","full","full",2,13
+29,15,25,"SCAMPR","full","full",2,14
+29,15,25,"SCAMPR FIXED","full","full",2,15
+29,15,25,"INLA PA","mesh","full",2,16
+29,15,25,"INLA PO","mesh","full",2,17
+29,15,25,"INLA IDM","mesh","full",2,18
+29,15,25,"SCAMPR","mesh","full",2,19
+29,15,25,"SCAMPR FIXED","mesh","full",2,20
+29,15,25,"INLA PA","full","full",3,21
+29,15,25,"INLA PO","full","full",3,22
+29,15,25,"INLA IDM","full","full",3,23
+29,15,25,"SCAMPR","full","full",3,24
+29,15,25,"SCAMPR FIXED","full","full",3,25
+29,15,25,"INLA PA","mesh","full",3,26
+29,15,25,"INLA PO","mesh","full",3,27
+29,15,25,"INLA IDM","mesh","full",3,28
+29,15,25,"SCAMPR","mesh","full",3,29
+29,15,25,"SCAMPR FIXED","mesh","full",3,30
+29,15,25,"INLA PA","full","full",4,31
+29,15,25,"INLA PO","full","full",4,32
+29,15,25,"INLA IDM","full","full",4,33
+29,15,25,"SCAMPR","full","full",4,34
+29,15,25,"SCAMPR FIXED","full","full",4,35
+29,15,25,"INLA PA","mesh","full",4,36
+29,15,25,"INLA PO","mesh","full",4,37
+29,15,25,"INLA IDM","mesh","full",4,38
+29,15,25,"SCAMPR","mesh","full",4,39
+29,15,25,"SCAMPR FIXED","mesh","full",4,40
+29,15,25,"INLA PA","full","full",5,41
+29,15,25,"INLA PO","full","full",5,42
+29,15,25,"INLA IDM","full","full",5,43
+29,15,25,"SCAMPR","full","full",5,44
+29,15,25,"SCAMPR FIXED","full","full",5,45
+29,15,25,"INLA PA","mesh","full",5,46
+29,15,25,"INLA PO","mesh","full",5,47
+29,15,25,"INLA IDM","mesh","full",5,48
+29,15,25,"SCAMPR","mesh","full",5,49
+29,15,25,"SCAMPR FIXED","mesh","full",5,50
+29,15,25,"INLA PA","full","full",6,51
+29,15,25,"INLA PO","full","full",6,52
+29,15,25,"INLA IDM","full","full",6,53
+29,15,25,"SCAMPR","full","full",6,54
+29,15,25,"SCAMPR FIXED","full","full",6,55
+29,15,25,"INLA PA","mesh","full",6,56
+29,15,25,"INLA PO","mesh","full",6,57
+29,15,25,"INLA IDM","mesh","full",6,58
+29,15,25,"SCAMPR","mesh","full",6,59
+29,15,25,"SCAMPR FIXED","mesh","full",6,60
+29,15,25,"INLA PA","full","full",7,61
+29,15,25,"INLA PO","full","full",7,62
+29,15,25,"INLA IDM","full","full",7,63
+29,15,25,"SCAMPR","full","full",7,64
+29,15,25,"SCAMPR FIXED","full","full",7,65
+29,15,25,"INLA PA","mesh","full",7,66
+29,15,25,"INLA PO","mesh","full",7,67
+29,15,25,"INLA IDM","mesh","full",7,68
+29,15,25,"SCAMPR","mesh","full",7,69
+29,15,25,"SCAMPR FIXED","mesh","full",7,70
+29,15,25,"INLA PA","full","full",8,71
+29,15,25,"INLA PO","full","full",8,72
+29,15,25,"INLA IDM","full","full",8,73
+29,15,25,"SCAMPR","full","full",8,74
+29,15,25,"SCAMPR FIXED","full","full",8,75
+29,15,25,"INLA PA","mesh","full",8,76
+29,15,25,"INLA PO","mesh","full",8,77
+29,15,25,"INLA IDM","mesh","full",8,78
+29,15,25,"SCAMPR","mesh","full",8,79
+29,15,25,"SCAMPR FIXED","mesh","full",8,80
+29,15,25,"INLA PA","full","full",9,81
+29,15,25,"INLA PO","full","full",9,82
+29,15,25,"INLA IDM","full","full",9,83
+29,15,25,"SCAMPR","full","full",9,84
+29,15,25,"SCAMPR FIXED","full","full",9,85
+29,15,25,"INLA PA","mesh","full",9,86
+29,15,25,"INLA PO","mesh","full",9,87
+29,15,25,"INLA IDM","mesh","full",9,88
+29,15,25,"SCAMPR","mesh","full",9,89
+29,15,25,"SCAMPR FIXED","mesh","full",9,90
+29,15,25,"INLA PA","full","full",10,91
+29,15,25,"INLA PO","full","full",10,92
+29,15,25,"INLA IDM","full","full",10,93
+29,15,25,"SCAMPR","full","full",10,94
+29,15,25,"SCAMPR FIXED","full","full",10,95
+29,15,25,"INLA PA","mesh","full",10,96
+29,15,25,"INLA PO","mesh","full",10,97
+29,15,25,"INLA IDM","mesh","full",10,98
+29,15,25,"SCAMPR","mesh","full",10,99
+29,15,25,"SCAMPR FIXED","mesh","full",10,100
+29,15,25,"INLA PA","full","full",11,101
+29,15,25,"INLA PO","full","full",11,102
+29,15,25,"INLA IDM","full","full",11,103
+29,15,25,"SCAMPR","full","full",11,104
+29,15,25,"SCAMPR FIXED","full","full",11,105
+29,15,25,"INLA PA","mesh","full",11,106
+29,15,25,"INLA PO","mesh","full",11,107
+29,15,25,"INLA IDM","mesh","full",11,108
+29,15,25,"SCAMPR","mesh","full",11,109
+29,15,25,"SCAMPR FIXED","mesh","full",11,110
+29,15,25,"INLA PA","full","full",12,111
+29,15,25,"INLA PO","full","full",12,112
+29,15,25,"INLA IDM","full","full",12,113
+29,15,25,"SCAMPR","full","full",12,114
+29,15,25,"SCAMPR FIXED","full","full",12,115
+29,15,25,"INLA PA","mesh","full",12,116
+29,15,25,"INLA PO","mesh","full",12,117
+29,15,25,"INLA IDM","mesh","full",12,118
+29,15,25,"SCAMPR","mesh","full",12,119
+29,15,25,"SCAMPR FIXED","mesh","full",12,120
+29,15,25,"INLA PA","full","full",13,121
+29,15,25,"INLA PO","full","full",13,122
+29,15,25,"INLA IDM","full","full",13,123
+29,15,25,"SCAMPR","full","full",13,124
+29,15,25,"SCAMPR FIXED","full","full",13,125
+29,15,25,"INLA PA","mesh","full",13,126
+29,15,25,"INLA PO","mesh","full",13,127
+29,15,25,"INLA IDM","mesh","full",13,128
+29,15,25,"SCAMPR","mesh","full",13,129
+29,15,25,"SCAMPR FIXED","mesh","full",13,130
+29,15,25,"INLA PA","full","full",14,131
+29,15,25,"INLA PO","full","full",14,132
+29,15,25,"INLA IDM","full","full",14,133
+29,15,25,"SCAMPR","full","full",14,134
+29,15,25,"SCAMPR FIXED","full","full",14,135
+29,15,25,"INLA PA","mesh","full",14,136
+29,15,25,"INLA PO","mesh","full",14,137
+29,15,25,"INLA IDM","mesh","full",14,138
+29,15,25,"SCAMPR","mesh","full",14,139
+29,15,25,"SCAMPR FIXED","mesh","full",14,140
+29,15,25,"INLA PA","full","full",15,141
+29,15,25,"INLA PO","full","full",15,142
+29,15,25,"INLA IDM","full","full",15,143
+29,15,25,"SCAMPR","full","full",15,144
+29,15,25,"SCAMPR FIXED","full","full",15,145
+29,15,25,"INLA PA","mesh","full",15,146
+29,15,25,"INLA PO","mesh","full",15,147
+29,15,25,"INLA IDM","mesh","full",15,148
+29,15,25,"SCAMPR","mesh","full",15,149
+29,15,25,"SCAMPR FIXED","mesh","full",15,150
+29,15,25,"INLA PA","full","full",16,151
+29,15,25,"INLA PO","full","full",16,152
+29,15,25,"INLA IDM","full","full",16,153
+29,15,25,"SCAMPR","full","full",16,154
+29,15,25,"SCAMPR FIXED","full","full",16,155
+29,15,25,"INLA PA","mesh","full",16,156
+29,15,25,"INLA PO","mesh","full",16,157
+29,15,25,"INLA IDM","mesh","full",16,158
+29,15,25,"SCAMPR","mesh","full",16,159
+29,15,25,"SCAMPR FIXED","mesh","full",16,160
+29,15,25,"INLA PA","full","full",17,161
+29,15,25,"INLA PO","full","full",17,162
+29,15,25,"INLA IDM","full","full",17,163
+29,15,25,"SCAMPR","full","full",17,164
+29,15,25,"SCAMPR FIXED","full","full",17,165
+29,15,25,"INLA PA","mesh","full",17,166
+29,15,25,"INLA PO","mesh","full",17,167
+29,15,25,"INLA IDM","mesh","full",17,168
+29,15,25,"SCAMPR","mesh","full",17,169
+29,15,25,"SCAMPR FIXED","mesh","full",17,170
+29,15,25,"INLA PA","full","full",18,171
+29,15,25,"INLA PO","full","full",18,172
+29,15,25,"INLA IDM","full","full",18,173
+29,15,25,"SCAMPR","full","full",18,174
+29,15,25,"SCAMPR FIXED","full","full",18,175
+29,15,25,"INLA PA","mesh","full",18,176
+29,15,25,"INLA PO","mesh","full",18,177
+29,15,25,"INLA IDM","mesh","full",18,178
+29,15,25,"SCAMPR","mesh","full",18,179
+29,15,25,"SCAMPR FIXED","mesh","full",18,180
+29,15,25,"INLA PA","full","full",19,181
+29,15,25,"INLA PO","full","full",19,182
+29,15,25,"INLA IDM","full","full",19,183
+29,15,25,"SCAMPR","full","full",19,184
+29,15,25,"SCAMPR FIXED","full","full",19,185
+29,15,25,"INLA PA","mesh","full",19,186
+29,15,25,"INLA PO","mesh","full",19,187
+29,15,25,"INLA IDM","mesh","full",19,188
+29,15,25,"SCAMPR","mesh","full",19,189
+29,15,25,"SCAMPR FIXED","mesh","full",19,190
+29,15,25,"INLA PA","full","full",20,191
+29,15,25,"INLA PO","full","full",20,192
+29,15,25,"INLA IDM","full","full",20,193
+29,15,25,"SCAMPR","full","full",20,194
+29,15,25,"SCAMPR FIXED","full","full",20,195
+29,15,25,"INLA PA","mesh","full",20,196
+29,15,25,"INLA PO","mesh","full",20,197
+29,15,25,"INLA IDM","mesh","full",20,198
+29,15,25,"SCAMPR","mesh","full",20,199
+29,15,25,"SCAMPR FIXED","mesh","full",20,200
+29,15,25,"INLA PA","full","full",21,201
+29,15,25,"INLA PO","full","full",21,202
+29,15,25,"INLA IDM","full","full",21,203
+29,15,25,"SCAMPR","full","full",21,204
+29,15,25,"SCAMPR FIXED","full","full",21,205
+29,15,25,"INLA PA","mesh","full",21,206
+29,15,25,"INLA PO","mesh","full",21,207
+29,15,25,"INLA IDM","mesh","full",21,208
+29,15,25,"SCAMPR","mesh","full",21,209
+29,15,25,"SCAMPR FIXED","mesh","full",21,210
+29,15,25,"INLA PA","full","full",22,211
+29,15,25,"INLA PO","full","full",22,212
+29,15,25,"INLA IDM","full","full",22,213
+29,15,25,"SCAMPR","full","full",22,214
+29,15,25,"SCAMPR FIXED","full","full",22,215
+29,15,25,"INLA PA","mesh","full",22,216
+29,15,25,"INLA PO","mesh","full",22,217
+29,15,25,"INLA IDM","mesh","full",22,218
+29,15,25,"SCAMPR","mesh","full",22,219
+29,15,25,"SCAMPR FIXED","mesh","full",22,220
+29,15,25,"INLA PA","full","full",23,221
+29,15,25,"INLA PO","full","full",23,222
+29,15,25,"INLA IDM","full","full",23,223
+29,15,25,"SCAMPR","full","full",23,224
+29,15,25,"SCAMPR FIXED","full","full",23,225
+29,15,25,"INLA PA","mesh","full",23,226
+29,15,25,"INLA PO","mesh","full",23,227
+29,15,25,"INLA IDM","mesh","full",23,228
+29,15,25,"SCAMPR","mesh","full",23,229
+29,15,25,"SCAMPR FIXED","mesh","full",23,230
+29,15,25,"INLA PA","full","full",24,231
+29,15,25,"INLA PO","full","full",24,232
+29,15,25,"INLA IDM","full","full",24,233
+29,15,25,"SCAMPR","full","full",24,234
+29,15,25,"SCAMPR FIXED","full","full",24,235
+29,15,25,"INLA PA","mesh","full",24,236
+29,15,25,"INLA PO","mesh","full",24,237
+29,15,25,"INLA IDM","mesh","full",24,238
+29,15,25,"SCAMPR","mesh","full",24,239
+29,15,25,"SCAMPR FIXED","mesh","full",24,240
+29,15,25,"INLA PA","full","full",25,241
+29,15,25,"INLA PO","full","full",25,242
+29,15,25,"INLA IDM","full","full",25,243
+29,15,25,"SCAMPR","full","full",25,244
+29,15,25,"SCAMPR FIXED","full","full",25,245
+29,15,25,"INLA PA","mesh","full",25,246
+29,15,25,"INLA PO","mesh","full",25,247
+29,15,25,"INLA IDM","mesh","full",25,248
+29,15,25,"SCAMPR","mesh","full",25,249
+29,15,25,"SCAMPR FIXED","mesh","full",25,250
+29,15,25,"INLA PA","full","full",26,251
+29,15,25,"INLA PO","full","full",26,252
+29,15,25,"INLA IDM","full","full",26,253
+29,15,25,"SCAMPR","full","full",26,254
+29,15,25,"SCAMPR FIXED","full","full",26,255
+29,15,25,"INLA PA","mesh","full",26,256
+29,15,25,"INLA PO","mesh","full",26,257
+29,15,25,"INLA IDM","mesh","full",26,258
+29,15,25,"SCAMPR","mesh","full",26,259
+29,15,25,"SCAMPR FIXED","mesh","full",26,260
+29,15,25,"INLA PA","full","full",27,261
+29,15,25,"INLA PO","full","full",27,262
+29,15,25,"INLA IDM","full","full",27,263
+29,15,25,"SCAMPR","full","full",27,264
+29,15,25,"SCAMPR FIXED","full","full",27,265
+29,15,25,"INLA PA","mesh","full",27,266
+29,15,25,"INLA PO","mesh","full",27,267
+29,15,25,"INLA IDM","mesh","full",27,268
+29,15,25,"SCAMPR","mesh","full",27,269
+29,15,25,"SCAMPR FIXED","mesh","full",27,270
+29,15,25,"INLA PA","full","full",28,271
+29,15,25,"INLA PO","full","full",28,272
+29,15,25,"INLA IDM","full","full",28,273
+29,15,25,"SCAMPR","full","full",28,274
+29,15,25,"SCAMPR FIXED","full","full",28,275
+29,15,25,"INLA PA","mesh","full",28,276
+29,15,25,"INLA PO","mesh","full",28,277
+29,15,25,"INLA IDM","mesh","full",28,278
+29,15,25,"SCAMPR","mesh","full",28,279
+29,15,25,"SCAMPR FIXED","mesh","full",28,280
+29,15,25,"INLA PA","full","full",29,281
+29,15,25,"INLA PO","full","full",29,282
+29,15,25,"INLA IDM","full","full",29,283
+29,15,25,"SCAMPR","full","full",29,284
+29,15,25,"SCAMPR FIXED","full","full",29,285
+29,15,25,"INLA PA","mesh","full",29,286
+29,15,25,"INLA PO","mesh","full",29,287
+29,15,25,"INLA IDM","mesh","full",29,288
+29,15,25,"SCAMPR","mesh","full",29,289
+29,15,25,"SCAMPR FIXED","mesh","full",29,290
+29,15,25,"INLA PA","full","full",30,291
+29,15,25,"INLA PO","full","full",30,292
+29,15,25,"INLA IDM","full","full",30,293
+29,15,25,"SCAMPR","full","full",30,294
+29,15,25,"SCAMPR FIXED","full","full",30,295
+29,15,25,"INLA PA","mesh","full",30,296
+29,15,25,"INLA PO","mesh","full",30,297
+29,15,25,"INLA IDM","mesh","full",30,298
+29,15,25,"SCAMPR","mesh","full",30,299
+29,15,25,"SCAMPR FIXED","mesh","full",30,300
+29,15,25,"INLA PA","full","full",31,301
+29,15,25,"INLA PO","full","full",31,302
+29,15,25,"INLA IDM","full","full",31,303
+29,15,25,"SCAMPR","full","full",31,304
+29,15,25,"SCAMPR FIXED","full","full",31,305
+29,15,25,"INLA PA","mesh","full",31,306
+29,15,25,"INLA PO","mesh","full",31,307
+29,15,25,"INLA IDM","mesh","full",31,308
+29,15,25,"SCAMPR","mesh","full",31,309
+29,15,25,"SCAMPR FIXED","mesh","full",31,310
+29,15,25,"INLA PA","full","full",32,311
+29,15,25,"INLA PO","full","full",32,312
+29,15,25,"INLA IDM","full","full",32,313
+29,15,25,"SCAMPR","full","full",32,314
+29,15,25,"SCAMPR FIXED","full","full",32,315
+29,15,25,"INLA PA","mesh","full",32,316
+29,15,25,"INLA PO","mesh","full",32,317
+29,15,25,"INLA IDM","mesh","full",32,318
+29,15,25,"SCAMPR","mesh","full",32,319
+29,15,25,"SCAMPR FIXED","mesh","full",32,320
+29,15,25,"INLA PA","full","full",33,321
+29,15,25,"INLA PO","full","full",33,322
+29,15,25,"INLA IDM","full","full",33,323
+29,15,25,"SCAMPR","full","full",33,324
+29,15,25,"SCAMPR FIXED","full","full",33,325
+29,15,25,"INLA PA","mesh","full",33,326
+29,15,25,"INLA PO","mesh","full",33,327
+29,15,25,"INLA IDM","mesh","full",33,328
+29,15,25,"SCAMPR","mesh","full",33,329
+29,15,25,"SCAMPR FIXED","mesh","full",33,330
+29,15,25,"INLA PA","full","full",34,331
+29,15,25,"INLA PO","full","full",34,332
+29,15,25,"INLA IDM","full","full",34,333
+29,15,25,"SCAMPR","full","full",34,334
+29,15,25,"SCAMPR FIXED","full","full",34,335
+29,15,25,"INLA PA","mesh","full",34,336
+29,15,25,"INLA PO","mesh","full",34,337
+29,15,25,"INLA IDM","mesh","full",34,338
+29,15,25,"SCAMPR","mesh","full",34,339
+29,15,25,"SCAMPR FIXED","mesh","full",34,340
+29,15,25,"INLA PA","full","full",35,341
+29,15,25,"INLA PO","full","full",35,342
+29,15,25,"INLA IDM","full","full",35,343
+29,15,25,"SCAMPR","full","full",35,344
+29,15,25,"SCAMPR FIXED","full","full",35,345
+29,15,25,"INLA PA","mesh","full",35,346
+29,15,25,"INLA PO","mesh","full",35,347
+29,15,25,"INLA IDM","mesh","full",35,348
+29,15,25,"SCAMPR","mesh","full",35,349
+29,15,25,"SCAMPR FIXED","mesh","full",35,350
+29,15,25,"INLA PA","full","full",36,351
+29,15,25,"INLA PO","full","full",36,352
+29,15,25,"INLA IDM","full","full",36,353
+29,15,25,"SCAMPR","full","full",36,354
+29,15,25,"SCAMPR FIXED","full","full",36,355
+29,15,25,"INLA PA","mesh","full",36,356
+29,15,25,"INLA PO","mesh","full",36,357
+29,15,25,"INLA IDM","mesh","full",36,358
+29,15,25,"SCAMPR","mesh","full",36,359
+29,15,25,"SCAMPR FIXED","mesh","full",36,360
+29,15,25,"INLA PA","full","full",37,361
+29,15,25,"INLA PO","full","full",37,362
+29,15,25,"INLA IDM","full","full",37,363
+29,15,25,"SCAMPR","full","full",37,364
+29,15,25,"SCAMPR FIXED","full","full",37,365
+29,15,25,"INLA PA","mesh","full",37,366
+29,15,25,"INLA PO","mesh","full",37,367
+29,15,25,"INLA IDM","mesh","full",37,368
+29,15,25,"SCAMPR","mesh","full",37,369
+29,15,25,"SCAMPR FIXED","mesh","full",37,370
+29,15,25,"INLA PA","full","full",38,371
+29,15,25,"INLA PO","full","full",38,372
+29,15,25,"INLA IDM","full","full",38,373
+29,15,25,"SCAMPR","full","full",38,374
+29,15,25,"SCAMPR FIXED","full","full",38,375
+29,15,25,"INLA PA","mesh","full",38,376
+29,15,25,"INLA PO","mesh","full",38,377
+29,15,25,"INLA IDM","mesh","full",38,378
+29,15,25,"SCAMPR","mesh","full",38,379
+29,15,25,"SCAMPR FIXED","mesh","full",38,380
+29,15,25,"INLA PA","full","full",39,381
+29,15,25,"INLA PO","full","full",39,382
+29,15,25,"INLA IDM","full","full",39,383
+29,15,25,"SCAMPR","full","full",39,384
+29,15,25,"SCAMPR FIXED","full","full",39,385
+29,15,25,"INLA PA","mesh","full",39,386
+29,15,25,"INLA PO","mesh","full",39,387
+29,15,25,"INLA IDM","mesh","full",39,388
+29,15,25,"SCAMPR","mesh","full",39,389
+29,15,25,"SCAMPR FIXED","mesh","full",39,390
+29,15,25,"INLA PA","full","full",40,391
+29,15,25,"INLA PO","full","full",40,392
+29,15,25,"INLA IDM","full","full",40,393
+29,15,25,"SCAMPR","full","full",40,394
+29,15,25,"SCAMPR FIXED","full","full",40,395
+29,15,25,"INLA PA","mesh","full",40,396
+29,15,25,"INLA PO","mesh","full",40,397
+29,15,25,"INLA IDM","mesh","full",40,398
+29,15,25,"SCAMPR","mesh","full",40,399
+29,15,25,"SCAMPR FIXED","mesh","full",40,400
+29,15,25,"INLA PA","full","full",41,401
+29,15,25,"INLA PO","full","full",41,402
+29,15,25,"INLA IDM","full","full",41,403
+29,15,25,"SCAMPR","full","full",41,404
+29,15,25,"SCAMPR FIXED","full","full",41,405
+29,15,25,"INLA PA","mesh","full",41,406
+29,15,25,"INLA PO","mesh","full",41,407
+29,15,25,"INLA IDM","mesh","full",41,408
+29,15,25,"SCAMPR","mesh","full",41,409
+29,15,25,"SCAMPR FIXED","mesh","full",41,410
+29,15,25,"INLA PA","full","full",42,411
+29,15,25,"INLA PO","full","full",42,412
+29,15,25,"INLA IDM","full","full",42,413
+29,15,25,"SCAMPR","full","full",42,414
+29,15,25,"SCAMPR FIXED","full","full",42,415
+29,15,25,"INLA PA","mesh","full",42,416
+29,15,25,"INLA PO","mesh","full",42,417
+29,15,25,"INLA IDM","mesh","full",42,418
+29,15,25,"SCAMPR","mesh","full",42,419
+29,15,25,"SCAMPR FIXED","mesh","full",42,420
+29,15,25,"INLA PA","full","full",43,421
+29,15,25,"INLA PO","full","full",43,422
+29,15,25,"INLA IDM","full","full",43,423
+29,15,25,"SCAMPR","full","full",43,424
+29,15,25,"SCAMPR FIXED","full","full",43,425
+29,15,25,"INLA PA","mesh","full",43,426
+29,15,25,"INLA PO","mesh","full",43,427
+29,15,25,"INLA IDM","mesh","full",43,428
+29,15,25,"SCAMPR","mesh","full",43,429
+29,15,25,"SCAMPR FIXED","mesh","full",43,430
+29,15,25,"INLA PA","full","full",44,431
+29,15,25,"INLA PO","full","full",44,432
+29,15,25,"INLA IDM","full","full",44,433
+29,15,25,"SCAMPR","full","full",44,434
+29,15,25,"SCAMPR FIXED","full","full",44,435
+29,15,25,"INLA PA","mesh","full",44,436
+29,15,25,"INLA PO","mesh","full",44,437
+29,15,25,"INLA IDM","mesh","full",44,438
+29,15,25,"SCAMPR","mesh","full",44,439
+29,15,25,"SCAMPR FIXED","mesh","full",44,440
+29,15,25,"INLA PA","full","full",45,441
+29,15,25,"INLA PO","full","full",45,442
+29,15,25,"INLA IDM","full","full",45,443
+29,15,25,"SCAMPR","full","full",45,444
+29,15,25,"SCAMPR FIXED","full","full",45,445
+29,15,25,"INLA PA","mesh","full",45,446
+29,15,25,"INLA PO","mesh","full",45,447
+29,15,25,"INLA IDM","mesh","full",45,448
+29,15,25,"SCAMPR","mesh","full",45,449
+29,15,25,"SCAMPR FIXED","mesh","full",45,450
+29,15,25,"INLA PA","full","full",46,451
+29,15,25,"INLA PO","full","full",46,452
+29,15,25,"INLA IDM","full","full",46,453
+29,15,25,"SCAMPR","full","full",46,454
+29,15,25,"SCAMPR FIXED","full","full",46,455
+29,15,25,"INLA PA","mesh","full",46,456
+29,15,25,"INLA PO","mesh","full",46,457
+29,15,25,"INLA IDM","mesh","full",46,458
+29,15,25,"SCAMPR","mesh","full",46,459
+29,15,25,"SCAMPR FIXED","mesh","full",46,460
+29,15,25,"INLA PA","full","full",47,461
+29,15,25,"INLA PO","full","full",47,462
+29,15,25,"INLA IDM","full","full",47,463
+29,15,25,"SCAMPR","full","full",47,464
+29,15,25,"SCAMPR FIXED","full","full",47,465
+29,15,25,"INLA PA","mesh","full",47,466
+29,15,25,"INLA PO","mesh","full",47,467
+29,15,25,"INLA IDM","mesh","full",47,468
+29,15,25,"SCAMPR","mesh","full",47,469
+29,15,25,"SCAMPR FIXED","mesh","full",47,470
+29,15,25,"INLA PA","full","full",48,471
+29,15,25,"INLA PO","full","full",48,472
+29,15,25,"INLA IDM","full","full",48,473
+29,15,25,"SCAMPR","full","full",48,474
+29,15,25,"SCAMPR FIXED","full","full",48,475
+29,15,25,"INLA PA","mesh","full",48,476
+29,15,25,"INLA PO","mesh","full",48,477
+29,15,25,"INLA IDM","mesh","full",48,478
+29,15,25,"SCAMPR","mesh","full",48,479
+29,15,25,"SCAMPR FIXED","mesh","full",48,480
+29,15,25,"INLA PA","full","full",49,481
+29,15,25,"INLA PO","full","full",49,482
+29,15,25,"INLA IDM","full","full",49,483
+29,15,25,"SCAMPR","full","full",49,484
+29,15,25,"SCAMPR FIXED","full","full",49,485
+29,15,25,"INLA PA","mesh","full",49,486
+29,15,25,"INLA PO","mesh","full",49,487
+29,15,25,"INLA IDM","mesh","full",49,488
+29,15,25,"SCAMPR","mesh","full",49,489
+29,15,25,"SCAMPR FIXED","mesh","full",49,490
+29,15,25,"INLA PA","full","full",50,491
+29,15,25,"INLA PO","full","full",50,492
+29,15,25,"INLA IDM","full","full",50,493
+29,15,25,"SCAMPR","full","full",50,494
+29,15,25,"SCAMPR FIXED","full","full",50,495
+29,15,25,"INLA PA","mesh","full",50,496
+29,15,25,"INLA PO","mesh","full",50,497
+29,15,25,"INLA IDM","mesh","full",50,498
+29,15,25,"SCAMPR","mesh","full",50,499
+29,15,25,"SCAMPR FIXED","mesh","full",50,500
+29,15,25,"INLA PA","full","full",51,501
+29,15,25,"INLA PO","full","full",51,502
+29,15,25,"INLA IDM","full","full",51,503
+29,15,25,"SCAMPR","full","full",51,504
+29,15,25,"SCAMPR FIXED","full","full",51,505
+29,15,25,"INLA PA","mesh","full",51,506
+29,15,25,"INLA PO","mesh","full",51,507
+29,15,25,"INLA IDM","mesh","full",51,508
+29,15,25,"SCAMPR","mesh","full",51,509
+29,15,25,"SCAMPR FIXED","mesh","full",51,510
+29,15,25,"INLA PA","full","full",52,511
+29,15,25,"INLA PO","full","full",52,512
+29,15,25,"INLA IDM","full","full",52,513
+29,15,25,"SCAMPR","full","full",52,514
+29,15,25,"SCAMPR FIXED","full","full",52,515
+29,15,25,"INLA PA","mesh","full",52,516
+29,15,25,"INLA PO","mesh","full",52,517
+29,15,25,"INLA IDM","mesh","full",52,518
+29,15,25,"SCAMPR","mesh","full",52,519
+29,15,25,"SCAMPR FIXED","mesh","full",52,520
+29,15,25,"INLA PA","full","full",53,521
+29,15,25,"INLA PO","full","full",53,522
+29,15,25,"INLA IDM","full","full",53,523
+29,15,25,"SCAMPR","full","full",53,524
+29,15,25,"SCAMPR FIXED","full","full",53,525
+29,15,25,"INLA PA","mesh","full",53,526
+29,15,25,"INLA PO","mesh","full",53,527
+29,15,25,"INLA IDM","mesh","full",53,528
+29,15,25,"SCAMPR","mesh","full",53,529
+29,15,25,"SCAMPR FIXED","mesh","full",53,530
+29,15,25,"INLA PA","full","full",54,531
+29,15,25,"INLA PO","full","full",54,532
+29,15,25,"INLA IDM","full","full",54,533
+29,15,25,"SCAMPR","full","full",54,534
+29,15,25,"SCAMPR FIXED","full","full",54,535
+29,15,25,"INLA PA","mesh","full",54,536
+29,15,25,"INLA PO","mesh","full",54,537
+29,15,25,"INLA IDM","mesh","full",54,538
+29,15,25,"SCAMPR","mesh","full",54,539
+29,15,25,"SCAMPR FIXED","mesh","full",54,540
+29,15,25,"INLA PA","full","full",55,541
+29,15,25,"INLA PO","full","full",55,542
+29,15,25,"INLA IDM","full","full",55,543
+29,15,25,"SCAMPR","full","full",55,544
+29,15,25,"SCAMPR FIXED","full","full",55,545
+29,15,25,"INLA PA","mesh","full",55,546
+29,15,25,"INLA PO","mesh","full",55,547
+29,15,25,"INLA IDM","mesh","full",55,548
+29,15,25,"SCAMPR","mesh","full",55,549
+29,15,25,"SCAMPR FIXED","mesh","full",55,550
+29,15,25,"INLA PA","full","full",56,551
+29,15,25,"INLA PO","full","full",56,552
+29,15,25,"INLA IDM","full","full",56,553
+29,15,25,"SCAMPR","full","full",56,554
+29,15,25,"SCAMPR FIXED","full","full",56,555
+29,15,25,"INLA PA","mesh","full",56,556
+29,15,25,"INLA PO","mesh","full",56,557
+29,15,25,"INLA IDM","mesh","full",56,558
+29,15,25,"SCAMPR","mesh","full",56,559
+29,15,25,"SCAMPR FIXED","mesh","full",56,560
+29,15,25,"INLA PA","full","full",57,561
+29,15,25,"INLA PO","full","full",57,562
+29,15,25,"INLA IDM","full","full",57,563
+29,15,25,"SCAMPR","full","full",57,564
+29,15,25,"SCAMPR FIXED","full","full",57,565
+29,15,25,"INLA PA","mesh","full",57,566
+29,15,25,"INLA PO","mesh","full",57,567
+29,15,25,"INLA IDM","mesh","full",57,568
+29,15,25,"SCAMPR","mesh","full",57,569
+29,15,25,"SCAMPR FIXED","mesh","full",57,570
+29,15,25,"INLA PA","full","full",58,571
+29,15,25,"INLA PO","full","full",58,572
+29,15,25,"INLA IDM","full","full",58,573
+29,15,25,"SCAMPR","full","full",58,574
+29,15,25,"SCAMPR FIXED","full","full",58,575
+29,15,25,"INLA PA","mesh","full",58,576
+29,15,25,"INLA PO","mesh","full",58,577
+29,15,25,"INLA IDM","mesh","full",58,578
+29,15,25,"SCAMPR","mesh","full",58,579
+29,15,25,"SCAMPR FIXED","mesh","full",58,580
+29,15,25,"INLA PA","full","full",59,581
+29,15,25,"INLA PO","full","full",59,582
+29,15,25,"INLA IDM","full","full",59,583
+29,15,25,"SCAMPR","full","full",59,584
+29,15,25,"SCAMPR FIXED","full","full",59,585
+29,15,25,"INLA PA","mesh","full",59,586
+29,15,25,"INLA PO","mesh","full",59,587
+29,15,25,"INLA IDM","mesh","full",59,588
+29,15,25,"SCAMPR","mesh","full",59,589
+29,15,25,"SCAMPR FIXED","mesh","full",59,590
+29,15,25,"INLA PA","full","full",60,591
+29,15,25,"INLA PO","full","full",60,592
+29,15,25,"INLA IDM","full","full",60,593
+29,15,25,"SCAMPR","full","full",60,594
+29,15,25,"SCAMPR FIXED","full","full",60,595
+29,15,25,"INLA PA","mesh","full",60,596
+29,15,25,"INLA PO","mesh","full",60,597
+29,15,25,"INLA IDM","mesh","full",60,598
+29,15,25,"SCAMPR","mesh","full",60,599
+29,15,25,"SCAMPR FIXED","mesh","full",60,600
+29,15,25,"INLA PA","full","full",61,601
+29,15,25,"INLA PO","full","full",61,602
+29,15,25,"INLA IDM","full","full",61,603
+29,15,25,"SCAMPR","full","full",61,604
+29,15,25,"SCAMPR FIXED","full","full",61,605
+29,15,25,"INLA PA","mesh","full",61,606
+29,15,25,"INLA PO","mesh","full",61,607
+29,15,25,"INLA IDM","mesh","full",61,608
+29,15,25,"SCAMPR","mesh","full",61,609
+29,15,25,"SCAMPR FIXED","mesh","full",61,610
+29,15,25,"INLA PA","full","full",62,611
+29,15,25,"INLA PO","full","full",62,612
+29,15,25,"INLA IDM","full","full",62,613
+29,15,25,"SCAMPR","full","full",62,614
+29,15,25,"SCAMPR FIXED","full","full",62,615
+29,15,25,"INLA PA","mesh","full",62,616
+29,15,25,"INLA PO","mesh","full",62,617
+29,15,25,"INLA IDM","mesh","full",62,618
+29,15,25,"SCAMPR","mesh","full",62,619
+29,15,25,"SCAMPR FIXED","mesh","full",62,620
+29,15,25,"INLA PA","full","full",63,621
+29,15,25,"INLA PO","full","full",63,622
+29,15,25,"INLA IDM","full","full",63,623
+29,15,25,"SCAMPR","full","full",63,624
+29,15,25,"SCAMPR FIXED","full","full",63,625
+29,15,25,"INLA PA","mesh","full",63,626
+29,15,25,"INLA PO","mesh","full",63,627
+29,15,25,"INLA IDM","mesh","full",63,628
+29,15,25,"SCAMPR","mesh","full",63,629
+29,15,25,"SCAMPR FIXED","mesh","full",63,630
+29,15,25,"INLA PA","full","full",64,631
+29,15,25,"INLA PO","full","full",64,632
+29,15,25,"INLA IDM","full","full",64,633
+29,15,25,"SCAMPR","full","full",64,634
+29,15,25,"SCAMPR FIXED","full","full",64,635
+29,15,25,"INLA PA","mesh","full",64,636
+29,15,25,"INLA PO","mesh","full",64,637
+29,15,25,"INLA IDM","mesh","full",64,638
+29,15,25,"SCAMPR","mesh","full",64,639
+29,15,25,"SCAMPR FIXED","mesh","full",64,640
+29,15,25,"INLA PA","full","full",65,641
+29,15,25,"INLA PO","full","full",65,642
+29,15,25,"INLA IDM","full","full",65,643
+29,15,25,"SCAMPR","full","full",65,644
+29,15,25,"SCAMPR FIXED","full","full",65,645
+29,15,25,"INLA PA","mesh","full",65,646
+29,15,25,"INLA PO","mesh","full",65,647
+29,15,25,"INLA IDM","mesh","full",65,648
+29,15,25,"SCAMPR","mesh","full",65,649
+29,15,25,"SCAMPR FIXED","mesh","full",65,650
+29,15,25,"INLA PA","full","full",66,651
+29,15,25,"INLA PO","full","full",66,652
+29,15,25,"INLA IDM","full","full",66,653
+29,15,25,"SCAMPR","full","full",66,654
+29,15,25,"SCAMPR FIXED","full","full",66,655
+29,15,25,"INLA PA","mesh","full",66,656
+29,15,25,"INLA PO","mesh","full",66,657
+29,15,25,"INLA IDM","mesh","full",66,658
+29,15,25,"SCAMPR","mesh","full",66,659
+29,15,25,"SCAMPR FIXED","mesh","full",66,660
+29,15,25,"INLA PA","full","full",67,661
+29,15,25,"INLA PO","full","full",67,662
+29,15,25,"INLA IDM","full","full",67,663
+29,15,25,"SCAMPR","full","full",67,664
+29,15,25,"SCAMPR FIXED","full","full",67,665
+29,15,25,"INLA PA","mesh","full",67,666
+29,15,25,"INLA PO","mesh","full",67,667
+29,15,25,"INLA IDM","mesh","full",67,668
+29,15,25,"SCAMPR","mesh","full",67,669
+29,15,25,"SCAMPR FIXED","mesh","full",67,670
+29,15,25,"INLA PA","full","full",68,671
+29,15,25,"INLA PO","full","full",68,672
+29,15,25,"INLA IDM","full","full",68,673
+29,15,25,"SCAMPR","full","full",68,674
+29,15,25,"SCAMPR FIXED","full","full",68,675
+29,15,25,"INLA PA","mesh","full",68,676
+29,15,25,"INLA PO","mesh","full",68,677
+29,15,25,"INLA IDM","mesh","full",68,678
+29,15,25,"SCAMPR","mesh","full",68,679
+29,15,25,"SCAMPR FIXED","mesh","full",68,680
+29,15,25,"INLA PA","full","full",69,681
+29,15,25,"INLA PO","full","full",69,682
+29,15,25,"INLA IDM","full","full",69,683
+29,15,25,"SCAMPR","full","full",69,684
+29,15,25,"SCAMPR FIXED","full","full",69,685
+29,15,25,"INLA PA","mesh","full",69,686
+29,15,25,"INLA PO","mesh","full",69,687
+29,15,25,"INLA IDM","mesh","full",69,688
+29,15,25,"SCAMPR","mesh","full",69,689
+29,15,25,"SCAMPR FIXED","mesh","full",69,690
+29,15,25,"INLA PA","full","full",70,691
+29,15,25,"INLA PO","full","full",70,692
+29,15,25,"INLA IDM","full","full",70,693
+29,15,25,"SCAMPR","full","full",70,694
+29,15,25,"SCAMPR FIXED","full","full",70,695
+29,15,25,"INLA PA","mesh","full",70,696
+29,15,25,"INLA PO","mesh","full",70,697
+29,15,25,"INLA IDM","mesh","full",70,698
+29,15,25,"SCAMPR","mesh","full",70,699
+29,15,25,"SCAMPR FIXED","mesh","full",70,700
+29,15,25,"INLA PA","full","full",71,701
+29,15,25,"INLA PO","full","full",71,702
+29,15,25,"INLA IDM","full","full",71,703
+29,15,25,"SCAMPR","full","full",71,704
+29,15,25,"SCAMPR FIXED","full","full",71,705
+29,15,25,"INLA PA","mesh","full",71,706
+29,15,25,"INLA PO","mesh","full",71,707
+29,15,25,"INLA IDM","mesh","full",71,708
+29,15,25,"SCAMPR","mesh","full",71,709
+29,15,25,"SCAMPR FIXED","mesh","full",71,710
+29,15,25,"INLA PA","full","full",72,711
+29,15,25,"INLA PO","full","full",72,712
+29,15,25,"INLA IDM","full","full",72,713
+29,15,25,"SCAMPR","full","full",72,714
+29,15,25,"SCAMPR FIXED","full","full",72,715
+29,15,25,"INLA PA","mesh","full",72,716
+29,15,25,"INLA PO","mesh","full",72,717
+29,15,25,"INLA IDM","mesh","full",72,718
+29,15,25,"SCAMPR","mesh","full",72,719
+29,15,25,"SCAMPR FIXED","mesh","full",72,720
+29,15,25,"INLA PA","full","full",73,721
+29,15,25,"INLA PO","full","full",73,722
+29,15,25,"INLA IDM","full","full",73,723
+29,15,25,"SCAMPR","full","full",73,724
+29,15,25,"SCAMPR FIXED","full","full",73,725
+29,15,25,"INLA PA","mesh","full",73,726
+29,15,25,"INLA PO","mesh","full",73,727
+29,15,25,"INLA IDM","mesh","full",73,728
+29,15,25,"SCAMPR","mesh","full",73,729
+29,15,25,"SCAMPR FIXED","mesh","full",73,730
+29,15,25,"INLA PA","full","full",74,731
+29,15,25,"INLA PO","full","full",74,732
+29,15,25,"INLA IDM","full","full",74,733
+29,15,25,"SCAMPR","full","full",74,734
+29,15,25,"SCAMPR FIXED","full","full",74,735
+29,15,25,"INLA PA","mesh","full",74,736
+29,15,25,"INLA PO","mesh","full",74,737
+29,15,25,"INLA IDM","mesh","full",74,738
+29,15,25,"SCAMPR","mesh","full",74,739
+29,15,25,"SCAMPR FIXED","mesh","full",74,740
+29,15,25,"INLA PA","full","full",75,741
+29,15,25,"INLA PO","full","full",75,742
+29,15,25,"INLA IDM","full","full",75,743
+29,15,25,"SCAMPR","full","full",75,744
+29,15,25,"SCAMPR FIXED","full","full",75,745
+29,15,25,"INLA PA","mesh","full",75,746
+29,15,25,"INLA PO","mesh","full",75,747
+29,15,25,"INLA IDM","mesh","full",75,748
+29,15,25,"SCAMPR","mesh","full",75,749
+29,15,25,"SCAMPR FIXED","mesh","full",75,750
+29,15,25,"INLA PA","full","full",76,751
+29,15,25,"INLA PO","full","full",76,752
+29,15,25,"INLA IDM","full","full",76,753
+29,15,25,"SCAMPR","full","full",76,754
+29,15,25,"SCAMPR FIXED","full","full",76,755
+29,15,25,"INLA PA","mesh","full",76,756
+29,15,25,"INLA PO","mesh","full",76,757
+29,15,25,"INLA IDM","mesh","full",76,758
+29,15,25,"SCAMPR","mesh","full",76,759
+29,15,25,"SCAMPR FIXED","mesh","full",76,760
+29,15,25,"INLA PA","full","full",77,761
+29,15,25,"INLA PO","full","full",77,762
+29,15,25,"INLA IDM","full","full",77,763
+29,15,25,"SCAMPR","full","full",77,764
+29,15,25,"SCAMPR FIXED","full","full",77,765
+29,15,25,"INLA PA","mesh","full",77,766
+29,15,25,"INLA PO","mesh","full",77,767
+29,15,25,"INLA IDM","mesh","full",77,768
+29,15,25,"SCAMPR","mesh","full",77,769
+29,15,25,"SCAMPR FIXED","mesh","full",77,770
+29,15,25,"INLA PA","full","full",78,771
+29,15,25,"INLA PO","full","full",78,772
+29,15,25,"INLA IDM","full","full",78,773
+29,15,25,"SCAMPR","full","full",78,774
+29,15,25,"SCAMPR FIXED","full","full",78,775
+29,15,25,"INLA PA","mesh","full",78,776
+29,15,25,"INLA PO","mesh","full",78,777
+29,15,25,"INLA IDM","mesh","full",78,778
+29,15,25,"SCAMPR","mesh","full",78,779
+29,15,25,"SCAMPR FIXED","mesh","full",78,780
+29,15,25,"INLA PA","full","full",79,781
+29,15,25,"INLA PO","full","full",79,782
+29,15,25,"INLA IDM","full","full",79,783
+29,15,25,"SCAMPR","full","full",79,784
+29,15,25,"SCAMPR FIXED","full","full",79,785
+29,15,25,"INLA PA","mesh","full",79,786
+29,15,25,"INLA PO","mesh","full",79,787
+29,15,25,"INLA IDM","mesh","full",79,788
+29,15,25,"SCAMPR","mesh","full",79,789
+29,15,25,"SCAMPR FIXED","mesh","full",79,790
+29,15,25,"INLA PA","full","full",80,791
+29,15,25,"INLA PO","full","full",80,792
+29,15,25,"INLA IDM","full","full",80,793
+29,15,25,"SCAMPR","full","full",80,794
+29,15,25,"SCAMPR FIXED","full","full",80,795
+29,15,25,"INLA PA","mesh","full",80,796
+29,15,25,"INLA PO","mesh","full",80,797
+29,15,25,"INLA IDM","mesh","full",80,798
+29,15,25,"SCAMPR","mesh","full",80,799
+29,15,25,"SCAMPR FIXED","mesh","full",80,800
+29,15,25,"INLA PA","full","full",81,801
+29,15,25,"INLA PO","full","full",81,802
+29,15,25,"INLA IDM","full","full",81,803
+29,15,25,"SCAMPR","full","full",81,804
+29,15,25,"SCAMPR FIXED","full","full",81,805
+29,15,25,"INLA PA","mesh","full",81,806
+29,15,25,"INLA PO","mesh","full",81,807
+29,15,25,"INLA IDM","mesh","full",81,808
+29,15,25,"SCAMPR","mesh","full",81,809
+29,15,25,"SCAMPR FIXED","mesh","full",81,810
+29,15,25,"INLA PA","full","full",82,811
+29,15,25,"INLA PO","full","full",82,812
+29,15,25,"INLA IDM","full","full",82,813
+29,15,25,"SCAMPR","full","full",82,814
+29,15,25,"SCAMPR FIXED","full","full",82,815
+29,15,25,"INLA PA","mesh","full",82,816
+29,15,25,"INLA PO","mesh","full",82,817
+29,15,25,"INLA IDM","mesh","full",82,818
+29,15,25,"SCAMPR","mesh","full",82,819
+29,15,25,"SCAMPR FIXED","mesh","full",82,820
+29,15,25,"INLA PA","full","full",83,821
+29,15,25,"INLA PO","full","full",83,822
+29,15,25,"INLA IDM","full","full",83,823
+29,15,25,"SCAMPR","full","full",83,824
+29,15,25,"SCAMPR FIXED","full","full",83,825
+29,15,25,"INLA PA","mesh","full",83,826
+29,15,25,"INLA PO","mesh","full",83,827
+29,15,25,"INLA IDM","mesh","full",83,828
+29,15,25,"SCAMPR","mesh","full",83,829
+29,15,25,"SCAMPR FIXED","mesh","full",83,830
+29,15,25,"INLA PA","full","full",84,831
+29,15,25,"INLA PO","full","full",84,832
+29,15,25,"INLA IDM","full","full",84,833
+29,15,25,"SCAMPR","full","full",84,834
+29,15,25,"SCAMPR FIXED","full","full",84,835
+29,15,25,"INLA PA","mesh","full",84,836
+29,15,25,"INLA PO","mesh","full",84,837
+29,15,25,"INLA IDM","mesh","full",84,838
+29,15,25,"SCAMPR","mesh","full",84,839
+29,15,25,"SCAMPR FIXED","mesh","full",84,840
+29,15,25,"INLA PA","full","full",85,841
+29,15,25,"INLA PO","full","full",85,842
+29,15,25,"INLA IDM","full","full",85,843
+29,15,25,"SCAMPR","full","full",85,844
+29,15,25,"SCAMPR FIXED","full","full",85,845
+29,15,25,"INLA PA","mesh","full",85,846
+29,15,25,"INLA PO","mesh","full",85,847
+29,15,25,"INLA IDM","mesh","full",85,848
+29,15,25,"SCAMPR","mesh","full",85,849
+29,15,25,"SCAMPR FIXED","mesh","full",85,850
+29,15,25,"INLA PA","full","full",86,851
+29,15,25,"INLA PO","full","full",86,852
+29,15,25,"INLA IDM","full","full",86,853
+29,15,25,"SCAMPR","full","full",86,854
+29,15,25,"SCAMPR FIXED","full","full",86,855
+29,15,25,"INLA PA","mesh","full",86,856
+29,15,25,"INLA PO","mesh","full",86,857
+29,15,25,"INLA IDM","mesh","full",86,858
+29,15,25,"SCAMPR","mesh","full",86,859
+29,15,25,"SCAMPR FIXED","mesh","full",86,860
+29,15,25,"INLA PA","full","full",87,861
+29,15,25,"INLA PO","full","full",87,862
+29,15,25,"INLA IDM","full","full",87,863
+29,15,25,"SCAMPR","full","full",87,864
+29,15,25,"SCAMPR FIXED","full","full",87,865
+29,15,25,"INLA PA","mesh","full",87,866
+29,15,25,"INLA PO","mesh","full",87,867
+29,15,25,"INLA IDM","mesh","full",87,868
+29,15,25,"SCAMPR","mesh","full",87,869
+29,15,25,"SCAMPR FIXED","mesh","full",87,870
+29,15,25,"INLA PA","full","full",88,871
+29,15,25,"INLA PO","full","full",88,872
+29,15,25,"INLA IDM","full","full",88,873
+29,15,25,"SCAMPR","full","full",88,874
+29,15,25,"SCAMPR FIXED","full","full",88,875
+29,15,25,"INLA PA","mesh","full",88,876
+29,15,25,"INLA PO","mesh","full",88,877
+29,15,25,"INLA IDM","mesh","full",88,878
+29,15,25,"SCAMPR","mesh","full",88,879
+29,15,25,"SCAMPR FIXED","mesh","full",88,880
+29,15,25,"INLA PA","full","full",89,881
+29,15,25,"INLA PO","full","full",89,882
+29,15,25,"INLA IDM","full","full",89,883
+29,15,25,"SCAMPR","full","full",89,884
+29,15,25,"SCAMPR FIXED","full","full",89,885
+29,15,25,"INLA PA","mesh","full",89,886
+29,15,25,"INLA PO","mesh","full",89,887
+29,15,25,"INLA IDM","mesh","full",89,888
+29,15,25,"SCAMPR","mesh","full",89,889
+29,15,25,"SCAMPR FIXED","mesh","full",89,890
+29,15,25,"INLA PA","full","full",90,891
+29,15,25,"INLA PO","full","full",90,892
+29,15,25,"INLA IDM","full","full",90,893
+29,15,25,"SCAMPR","full","full",90,894
+29,15,25,"SCAMPR FIXED","full","full",90,895
+29,15,25,"INLA PA","mesh","full",90,896
+29,15,25,"INLA PO","mesh","full",90,897
+29,15,25,"INLA IDM","mesh","full",90,898
+29,15,25,"SCAMPR","mesh","full",90,899
+29,15,25,"SCAMPR FIXED","mesh","full",90,900
+29,15,25,"INLA PA","full","full",91,901
+29,15,25,"INLA PO","full","full",91,902
+29,15,25,"INLA IDM","full","full",91,903
+29,15,25,"SCAMPR","full","full",91,904
+29,15,25,"SCAMPR FIXED","full","full",91,905
+29,15,25,"INLA PA","mesh","full",91,906
+29,15,25,"INLA PO","mesh","full",91,907
+29,15,25,"INLA IDM","mesh","full",91,908
+29,15,25,"SCAMPR","mesh","full",91,909
+29,15,25,"SCAMPR FIXED","mesh","full",91,910
+29,15,25,"INLA PA","full","full",92,911
+29,15,25,"INLA PO","full","full",92,912
+29,15,25,"INLA IDM","full","full",92,913
+29,15,25,"SCAMPR","full","full",92,914
+29,15,25,"SCAMPR FIXED","full","full",92,915
+29,15,25,"INLA PA","mesh","full",92,916
+29,15,25,"INLA PO","mesh","full",92,917
+29,15,25,"INLA IDM","mesh","full",92,918
+29,15,25,"SCAMPR","mesh","full",92,919
+29,15,25,"SCAMPR FIXED","mesh","full",92,920
+29,15,25,"INLA PA","full","full",93,921
+29,15,25,"INLA PO","full","full",93,922
+29,15,25,"INLA IDM","full","full",93,923
+29,15,25,"SCAMPR","full","full",93,924
+29,15,25,"SCAMPR FIXED","full","full",93,925
+29,15,25,"INLA PA","mesh","full",93,926
+29,15,25,"INLA PO","mesh","full",93,927
+29,15,25,"INLA IDM","mesh","full",93,928
+29,15,25,"SCAMPR","mesh","full",93,929
+29,15,25,"SCAMPR FIXED","mesh","full",93,930
+29,15,25,"INLA PA","full","full",94,931
+29,15,25,"INLA PO","full","full",94,932
+29,15,25,"INLA IDM","full","full",94,933
+29,15,25,"SCAMPR","full","full",94,934
+29,15,25,"SCAMPR FIXED","full","full",94,935
+29,15,25,"INLA PA","mesh","full",94,936
+29,15,25,"INLA PO","mesh","full",94,937
+29,15,25,"INLA IDM","mesh","full",94,938
+29,15,25,"SCAMPR","mesh","full",94,939
+29,15,25,"SCAMPR FIXED","mesh","full",94,940
+29,15,25,"INLA PA","full","full",95,941
+29,15,25,"INLA PO","full","full",95,942
+29,15,25,"INLA IDM","full","full",95,943
+29,15,25,"SCAMPR","full","full",95,944
+29,15,25,"SCAMPR FIXED","full","full",95,945
+29,15,25,"INLA PA","mesh","full",95,946
+29,15,25,"INLA PO","mesh","full",95,947
+29,15,25,"INLA IDM","mesh","full",95,948
+29,15,25,"SCAMPR","mesh","full",95,949
+29,15,25,"SCAMPR FIXED","mesh","full",95,950
+29,15,25,"INLA PA","full","full",96,951
+29,15,25,"INLA PO","full","full",96,952
+29,15,25,"INLA IDM","full","full",96,953
+29,15,25,"SCAMPR","full","full",96,954
+29,15,25,"SCAMPR FIXED","full","full",96,955
+29,15,25,"INLA PA","mesh","full",96,956
+29,15,25,"INLA PO","mesh","full",96,957
+29,15,25,"INLA IDM","mesh","full",96,958
+29,15,25,"SCAMPR","mesh","full",96,959
+29,15,25,"SCAMPR FIXED","mesh","full",96,960
+29,15,25,"INLA PA","full","full",97,961
+29,15,25,"INLA PO","full","full",97,962
+29,15,25,"INLA IDM","full","full",97,963
+29,15,25,"SCAMPR","full","full",97,964
+29,15,25,"SCAMPR FIXED","full","full",97,965
+29,15,25,"INLA PA","mesh","full",97,966
+29,15,25,"INLA PO","mesh","full",97,967
+29,15,25,"INLA IDM","mesh","full",97,968
+29,15,25,"SCAMPR","mesh","full",97,969
+29,15,25,"SCAMPR FIXED","mesh","full",97,970
+29,15,25,"INLA PA","full","full",98,971
+29,15,25,"INLA PO","full","full",98,972
+29,15,25,"INLA IDM","full","full",98,973
+29,15,25,"SCAMPR","full","full",98,974
+29,15,25,"SCAMPR FIXED","full","full",98,975
+29,15,25,"INLA PA","mesh","full",98,976
+29,15,25,"INLA PO","mesh","full",98,977
+29,15,25,"INLA IDM","mesh","full",98,978
+29,15,25,"SCAMPR","mesh","full",98,979
+29,15,25,"SCAMPR FIXED","mesh","full",98,980
+29,15,25,"INLA PA","full","full",99,981
+29,15,25,"INLA PO","full","full",99,982
+29,15,25,"INLA IDM","full","full",99,983
+29,15,25,"SCAMPR","full","full",99,984
+29,15,25,"SCAMPR FIXED","full","full",99,985
+29,15,25,"INLA PA","mesh","full",99,986
+29,15,25,"INLA PO","mesh","full",99,987
+29,15,25,"INLA IDM","mesh","full",99,988
+29,15,25,"SCAMPR","mesh","full",99,989
+29,15,25,"SCAMPR FIXED","mesh","full",99,990
+29,15,25,"INLA PA","full","full",100,991
+29,15,25,"INLA PO","full","full",100,992
+29,15,25,"INLA IDM","full","full",100,993
+29,15,25,"SCAMPR","full","full",100,994
+29,15,25,"SCAMPR FIXED","full","full",100,995
+29,15,25,"INLA PA","mesh","full",100,996
+29,15,25,"INLA PO","mesh","full",100,997
+29,15,25,"INLA IDM","mesh","full",100,998
+29,15,25,"SCAMPR","mesh","full",100,999
+29,15,25,"SCAMPR FIXED","mesh","full",100,1000
