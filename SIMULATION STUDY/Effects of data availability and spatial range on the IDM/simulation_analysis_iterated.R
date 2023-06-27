@@ -1,8 +1,43 @@
+home.wd <- getwd()
+
+## Install required packages ###################################################
 if(!require(scampr, quietly = T)){
-  # scampr package can be installed from github using devtools (see https://www.r-project.org/nosvn/pandoc/devtools.html for devtools installation)
-  devtools::install_github("ElliotDovers/scampr", dependencies = "Imports", upgrade = "never")
+  # scampr package can be installed from source provided in the code zip
+  setwd("..")
+  setwd("..")
+  install.packages(paste0(getwd(), "/scampr_0.0.0.9000.tar.gz"), repos = NULL, type="source")
   library(scampr)
+  setwd(home.wd)
 }
+if(!require(RandomFieldsUtils, quietly = T)){
+  # RandomFieldsUtils package can be installed from source provided in the code zip
+  setwd("..")
+  setwd("..")
+  install.packages(paste0(getwd(), "/RandomFieldsUtils_1.2.5.tar.gz"), repos = NULL, type="source")
+  library(RandomFieldsUtils)
+  setwd(home.wd)
+}
+if(!require(RandomFields, quietly = T)){
+  # RandomFields package can be installed from source provided in the code zip
+  setwd("..")
+  setwd("..")
+  install.packages(paste0(getwd(), "/RandomFields_3.3.14.tar.gz"), repos = NULL, type="source")
+  library(RandomFields)
+  setwd(home.wd)
+}
+if(!require(sp, quietly = T)){
+  install.packages("sp")
+  library(sp)
+}
+if(!require(fields, quietly = T)){
+  install.packages("fields")
+  library(fields)
+}
+if(!require(spatstat, quietly = T)){
+  install.packages("spatstat")
+  library(spatstat)
+}
+################################################################################
 
 # Get the job array
 tab <- read.csv("job_array.csv")
@@ -57,9 +92,6 @@ structured_data <- sim_occurrence_data(Intercept_po = int_po,
 unstructured_data <- attr(structured_data, "presence-only")
 quad <- attr(structured_data, "truth.grid")
 c(n_pa = sum(structured_data$present), n_po = nrow(unstructured_data), ratio = sum(structured_data$present) / nrow(unstructured_data))
-
-## for scampr models ###########################################################
-library(scampr)
 
 # add a presence identifier to the quadrature
 quad$present <- 0

@@ -1,19 +1,59 @@
+home.wd <- getwd()
+
+## Install required packages ###################################################
 if(!require(scampr, quietly = T)){
-  # scampr package can be installed from github using devtools (see https://www.r-project.org/nosvn/pandoc/devtools.html for devtools installation)
-  devtools::install_github("ElliotDovers/scampr", dependencies = "Imports", upgrade = "never")
+  # scampr package can be installed from source provided in the code zip
+  setwd("..")
+  setwd("..")
+  install.packages(paste0(getwd(), "/scampr_0.0.0.9000.tar.gz"), repos = NULL, type="source")
   library(scampr)
+  setwd(home.wd)
 }
 if(!require(INLA, quietly = T)){
   install.packages("INLA",repos=c(getOption("repos"),INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE)
   library(INLA)
 }
-
-library(scampr)
-library(INLA)
-library(reshape2)
-library(rgeos)
-library(fields)
-library(mgcv)
+if(!require(RandomFieldsUtils, quietly = T)){
+  # RandomFieldsUtils package can be installed from source provided in the code zip
+  setwd("..")
+  setwd("..")
+  install.packages(paste0(getwd(), "/RandomFieldsUtils_1.2.5.tar.gz"), repos = NULL, type="source")
+  library(RandomFieldsUtils)
+  setwd(home.wd)
+}
+if(!require(RandomFields, quietly = T)){
+  # RandomFields package can be installed from source provided in the code zip
+  setwd("..")
+  setwd("..")
+  install.packages(paste0(getwd(), "/RandomFields_3.3.14.tar.gz"), repos = NULL, type="source")
+  library(RandomFields)
+  setwd(home.wd)
+}
+if(!require(sp, quietly = T)){
+  install.packages("sp")
+  library(sp)
+}
+if(!require(fields, quietly = T)){
+  install.packages("fields")
+  library(fields)
+}
+if(!require(spatstat, quietly = T)){
+  install.packages("spatstat")
+  library(spatstat)
+}
+if(!require(mgcv, quietly = T)){
+  install.packages("mgcv")
+  library(mgcv)
+}
+if(!require(rgeos, quietly = T)){
+  install.packages("rgeos")
+  library(rgeos)
+}
+if(!require(deldir, quietly = T)){
+  install.packages("deldir")
+  library(deldir)
+}
+################################################################################
 
 # Get the job array
 tab <- read.csv("job_array.csv")

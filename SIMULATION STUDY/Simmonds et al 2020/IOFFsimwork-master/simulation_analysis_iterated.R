@@ -1,12 +1,40 @@
+home.wd <- getwd()
+
+## Install required packages ###################################################
 if(!require(scampr, quietly = T)){
-  # scampr package can be installed from github using devtools (see https://www.r-project.org/nosvn/pandoc/devtools.html for devtools installation)
-  devtools::install_github("ElliotDovers/scampr", dependencies = "Imports", upgrade = "never")
+  # scampr package can be installed from source provided in the code zip
+  setwd("..")
+  setwd("..")
+  setwd("..")
+  install.packages(paste0(getwd(), "/scampr_0.0.0.9000.tar.gz"), repos = NULL, type="source")
   library(scampr)
+  setwd(home.wd)
 }
 if(!require(INLA, quietly = T)){
   install.packages("INLA",repos=c(getOption("repos"),INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE)
   library(INLA)
 }
+if(!require(sp, quietly = T)){
+  install.packages("sp")
+  library(sp)
+}
+if(!require(fields, quietly = T)){
+  install.packages("fields")
+  library(fields)
+}
+if(!require(resahpe2, quietly = T)){
+  install.packages("reshape2")
+  library(reshape2)
+}
+if(!require(rgeos, quietly = T)){
+  install.packages("rgeos")
+  library(rgeos)
+}
+if(!require(deldir, quietly = T)){
+  install.packages("deldir")
+  library(deldir)
+}
+################################################################################
 
 # Get the job array
 tab <- read.csv("job_array.csv")
@@ -89,7 +117,6 @@ num_presence <- sum(structured_data$presence)
 # since the full presences are thinned by rbinom(nrow(dat1$xy),1,biasfield$stratprobs)
 
 ## for scampr models ###########################################################
-library(scampr)
 cov.vec <- NULL
 bias.vec <- NULL
 log_mu_A.vec <- NULL

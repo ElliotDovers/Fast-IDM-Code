@@ -1,18 +1,30 @@
+home.wd <- getwd()
+
+## Install required packages ###################################################
 if(!require(scampr, quietly = T)){
-  # scampr package can be installed from github using devtools (see https://www.r-project.org/nosvn/pandoc/devtools.html for devtools installation)
-  devtools::install_github("ElliotDovers/scampr", dependencies = "Imports", upgrade = "never")
+  # scampr package can be installed from source provided in the code zip
+  setwd("..")
+  install.packages(paste0(getwd(), "/scampr_0.0.0.9000.tar.gz"), repos = NULL, type="source")
   library(scampr)
+  setwd(home.wd)
 }
+if(!require(disdat, quietly = T)){
+  install.packages("disdat")
+  library(disdat)
+}
+if(!require(MASS, quietly = T)){
+  install.packages("MASS")
+  library(MASS)
+}
+if(!require(pROC, quietly = T)){
+  install.packages("pROC")
+  library(pROC)
+}
+################################################################################
 
 # Perform the spatial k-fold cross-validation #
 
-library(disdat)
-# library(raster)
-library(scampr)
-library(MASS)
-library(pROC)
-
-# TOGGLE TO DETERMINE SIMULATION/JOB NUMBER
+# TOGGLE TO DETERMINE SIMULATION/JOB NUMBER (THESE CORRESPOND TO SPECIES 1-29)
 job = 1 # run the first job for example
 # determine job number from pbs script
 # job = as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
@@ -90,23 +102,8 @@ for (grp in flora_groups) {
 # all(match(pa3$siteid, dat_pa3$siteid) == 1:nrow(dat_pa3))
 # all(match(pa4$siteid, dat_pa4$siteid) == 1:nrow(dat_pa4))
 
-# get the full domain data
-# setwd("C:/Users/iamel/Desktop/Work/Post Doc/Environmental Boundaries/Elith Data/elith_data/Environment/NSW")
-# raster.list <- list()
-# nlocs <- NULL
-# for (p in preds) {
-#   raster.list[[which(p == preds)]] <- raster(paste0(p, ".tif"))
-#   nlocs[which(p == preds)] <- nrow(data.frame(rasterToPoints(raster.list[[which(p == preds)]])))
-# }
-# domain <-data.frame(rasterToPoints(raster.list[[which.max(nlocs)]]))
-# pts <- SpatialPoints(coords = domain[,c("x","y")])
-# dat <- as.data.frame(do.call("cbind", lapply(raster.list, extract, pts)))
-# colnames(dat) <- preds
-# dat$x <- domain$x
-# dat$y <- domain$y
-# rm(domain, raster.list, pts)
-# gc()
-load("NSW.RDATA") # load the pre-prepared full domain data
+# get the full domain data grid
+load("nsw_grid.RDATA") # load the pre-prepared full domain data
 
 # set up the spatial CV folds #
 K <- 4
@@ -180,6 +177,8 @@ dat_pa$occ <- dat_pa[ , s]
 
 # scale the covariates (according to entire range) and
 # convert categorical vars to factor in both training and testing data. We use the package forcats to ensure that the levels of the factor in the evaluation data match those in the training data, regardless of whether all levels are present in the evaluation data. 
+
+preds.dat <- rbind(dat_po[,preds], dat_pa[,preds]) # this was previously the full NSW data but I have reduced for anonymous code submission
 for(i in preds){
   if(i %in% categoricalvars){
     fac_col <- i
@@ -192,9 +191,8 @@ for(i in preds){
     dat_pa[ ,fac_col] <- forcats::fct_expand(dat_pa[,fac_col], levels(dat_po[,fac_col]))
     dat_pa[ ,fac_col] <- forcats::fct_relevel(dat_pa[,fac_col], levels(dat_po[,fac_col]))
   } else {
-    scale(dat[ , i])
-    dat_po[ , i] <- (dat_po[ , i] - mean(dat[ , i], na.rm = T)) / sd(dat[ , i], na.rm = T)
-    dat_pa[ , i] <- (dat_pa[ , i] - mean(dat[ , i], na.rm = T)) / sd(dat[ , i], na.rm = T)
+    dat_po[ , i] <- (dat_po[ , i] - mean(preds.dat[ , i], na.rm = T)) / sd(preds.dat[ , i], na.rm = T)
+    dat_pa[ , i] <- (dat_pa[ , i] - mean(preds.dat[ , i], na.rm = T)) / sd(preds.dat[ , i], na.rm = T)
   }
 }
 
