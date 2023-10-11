@@ -29,6 +29,7 @@ setwd(home.wd)
 
 # save(list = "dat", file = "collated raw results.RDATA")
 load("collated raw results.RDATA")
+load("collated_results.RDATA")
 
 library(dplyr)
 library(ggplot2)
@@ -140,7 +141,7 @@ p1 <- ggplot(data = newdat %>% filter(scen_pa == 50 & b_range == "19"), aes(x = 
   scale_x_discrete(name = "Expected Amount of Presence-Only Data Integrated", labels = c(expression(paste(E*"["*n[PO]*"]", " = 50")), expression(paste(E*"["*n[PO]*"]", " = 200")), expression(paste(E*"["*n[PO]*"]", " = 800")))) +
   scale_y_continuous(
     # limits = ranges$`200`,
-    name = expression(bold(paste(Delta~D[KL],"(", mu, " || ", hat(mu), ")"))),
+    name = expression(paste(Delta~D[KL],"(", mu, " || ", hat(mu), ")")),
     # trans = "log",
     # breaks = c(20, 50, 150),
     labels=scaleFUN) +
@@ -156,7 +157,8 @@ p1 <- ggplot(data = newdat %>% filter(scen_pa == 50 & b_range == "19"), aes(x = 
                              b = 12,  # Bottom margin
                              l = 11)  # Left margin
   ) +
-  ggtitle(label = expression(paste(E*"["*n[PA]*"]", " = 50"))) +
+  # ggtitle(label = expression(paste(E*"["*n[PA]*"]", " = 50"))) +
+  ggtitle(label = "Species expected at 5% of survey sites") +
   geom_abline(intercept = 0, slope = 0, lty = "dashed", color = "darkblue")
 
 p2 <- ggplot(data = newdat %>% filter(scen_pa == 200 & b_range == "19"), aes(x = Model, y = delta_kl, color = Model, fill = Model)) +
@@ -165,7 +167,7 @@ p2 <- ggplot(data = newdat %>% filter(scen_pa == 200 & b_range == "19"), aes(x =
   scale_x_discrete(name = "Expected Amount of Presence-Only Data Integrated", labels = c(expression(paste(E*"["*n[PO]*"]", " = 50")), expression(paste(E*"["*n[PO]*"]", " = 200")), expression(paste(E*"["*n[PO]*"]", " = 800")))) +
   scale_y_continuous(
     # limits = ranges$`200`,
-    name = expression(bold(paste(Delta~D[KL],"(", mu, " || ", hat(mu), ")"))),
+    name = expression(paste(Delta~D[KL],"(", mu, " || ", hat(mu), ")")),
     # trans = "log",
     # breaks = c(20, 50, 150),
     labels=scaleFUN) +
@@ -181,7 +183,8 @@ p2 <- ggplot(data = newdat %>% filter(scen_pa == 200 & b_range == "19"), aes(x =
                              b = 20,  # Bottom margin
                              l = 11)  # Left margin
   ) + 
-  ggtitle(label = expression(paste(E*"["*n[PA]*"]", " = 200"))) +
+  # ggtitle(label = expression(paste(E*"["*n[PA]*"]", " = 200"))) +
+  ggtitle(label = "Species expected at 20% of survey sites") +
   geom_abline(intercept = 0, slope = 0, lty = "dashed", color = "darkblue")
 
 p3 <- ggplot(data = newdat %>% filter(scen_pa == 800 & b_range == "19"), aes(x = Model, y = delta_kl, col = Model, fill = Model)) +
@@ -190,7 +193,7 @@ p3 <- ggplot(data = newdat %>% filter(scen_pa == 800 & b_range == "19"), aes(x =
   scale_x_discrete(name = "Expected Amount of Presence-Only Data Integrated", labels = c(expression(paste(E*"["*n[PO]*"]", " = 50")), expression(paste(E*"["*n[PO]*"]", " = 200")), expression(paste(E*"["*n[PO]*"]", " = 800")))) +
   scale_y_continuous(
     # limits = ranges$`800`,
-    name = expression(bold(paste(Delta~D[KL],"(", mu, " || ", hat(mu), ")"))),
+    name = expression(paste(Delta~D[KL],"(", mu, " || ", hat(mu), ")")),
     # trans = "log",
     # breaks = c(20, 50, 150),
     labels=scaleFUN) +
@@ -206,7 +209,8 @@ p3 <- ggplot(data = newdat %>% filter(scen_pa == 800 & b_range == "19"), aes(x =
                              b = 0,  # Bottom margin
                              l = 0)  # Left margin
   ) + 
-  ggtitle(label = expression(paste(E*"["*n[PA]*"]", " = 800"))) +
+  # ggtitle(label = expression(paste(E*"["*n[PA]*"]", " = 800"))) +
+  ggtitle(label = "Species expected at 80% of survey sites") +
   geom_abline(intercept = 0, slope = 0, lty = "dashed", color = "darkblue")
 
 library(gridExtra)

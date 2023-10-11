@@ -7,7 +7,7 @@ library(raster)
 library(dplyr)
 library(tidyr)
 
-res.dir <- "results"
+res.dir <- "Results"
 
 # some hard-coded info
 r = "NSW"
