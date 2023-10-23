@@ -1,0 +1,206 @@
+Type 'citation("pROC")' for a citation.
+
+Attaching package: ‘pROC’
+
+The following objects are masked from ‘package:stats’:
+
+    cov, smooth, var
+
+There were 50 or more warnings (use warnings() to see the first 50)
+Warning messages:
+1: In sqrt(diag(object$cov.fixed)) : NaNs produced
+2: In sqrt(diag(object$cov.fixed)) : NaNs produced
+Loading required package: Matrix
+Loading required package: foreach
+Loading required package: parallel
+Loading required package: sp
+This is INLA_22.12.16 built 2022-12-23 13:24:10 UTC.
+ - See www.r-inla.org/contact-us for how to get help.
+ - To enable PARDISO sparse library; see inla.pardiso()
+
+
+	You ask for 48 x 1 = 48 number of threads,
+	which is more that I got from the system: 1
+	Number of threads is reduced to 1:1
+
+
+
+	You ask for 48 x 1 = 48 number of threads,
+	which is more that I got from the system: 1
+	Number of threads is reduced to 1:1
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+
+
+
+	*** max_correction = 25.01 >= 25.00, so 'vb.correction' is aborted
+	*** Please (re-)consider your model, priors, confounding, etc.
+	*** You can change the emergency value (current value=25.00) by 
+	*** 	'control.inla=list(control.vb=list(emergency=...))'
+

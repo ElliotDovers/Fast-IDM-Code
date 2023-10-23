@@ -1,0 +1,12 @@
+Type 'citation("pROC")' for a citation.
+
+Attaching package: ‘pROC’
+
+The following objects are masked from ‘package:stats’:
+
+    cov, smooth, var
+
+Error in spDistsN1(y, x, ll) : pt must be numeric
+Calls: basis.search.po ... <Anonymous> -> matrix -> t -> apply -> FUN -> spDistsN1
+In addition: There were 11 warnings (use warnings() to see them)
+Execution halted

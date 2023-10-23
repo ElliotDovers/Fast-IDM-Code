@@ -43,9 +43,9 @@ if(!require(spatstat, quietly = T)){
 tab <- read.csv("job_array.csv")
 
 # TOGGLE TO DETERMINE SIMULATION/JOB NUMBER
-job = 1 # run the first job for example
+# job = 1 # run the first job for example
 # determine job number from pbs script
-# job = as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
+job = as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
 
 ################################################################################
 # Set parameters that define the scenarios:
@@ -141,8 +141,10 @@ if (is.null(pa$basis.functions)) { # in case the PA model has no SRE (we need to
 }
 # predict the mean abundance rate of the prediction points
 idm_pred.time <- system.time(assign("idm.pred", predict(idm, newdata = quad)))
+idm_pred.time_lambda <- system.time(assign("idm.pred_lambda", predict(idm, newdata = quad, include.bias.accounting = T)))
 # collate the timings
 idm.times <- as.numeric(pa$cpu["basis.search"] + po$cpu["basis.search"] + idm0$cpu["opt"] + idm$cpu["opt"] + idm_pred.time[3])
+idm.times_lambda <- as.numeric(pa$cpu["basis.search"] + po$cpu["basis.search"] + idm0$cpu["opt"] + idm$cpu["opt"] + idm_pred.time_lambda[3])
 
 ##############################################################################
 
@@ -151,15 +153,19 @@ calc_KLdiv <- function(scampr.pred) {
   m.prd <- exp(scampr.pred)
   return(as.numeric(quad$quad.size %*% (quad$mu * log(quad$mu / m.prd))) - as.numeric(quad$quad.size %*% (quad$mu - m.prd)))
 }
+calc_KLdiv_lambda <- function(scampr.pred) {
+  m.prd <- exp(scampr.pred)
+  return(as.numeric(quad$quad.size %*% (quad$lambda * log(quad$lambda / m.prd))) - as.numeric(quad$quad.size %*% (quad$lambda - m.prd)))
+}
 calc_MAE <- function(scampr.pred) {
   m.prd <- exp(scampr.pred)
   return(mean(abs((m.prd - mean(m.prd)) - (quad$mu - mean(quad$mu)))))
 }
 
 # set up the result data frame
-res_po = data.frame(k = if(is.null(po$random.effects)){0}else{nrow(po$random.effects)}, k_bias = NA, Model = "PO Only", LL = logLik(po), KLdiv = calc_KLdiv(po.pred), MAE = calc_MAE(po.pred), timing = po.times, fit_flag = po$convergence)
-res_pa = data.frame(k = if(is.null(pa$random.effects)){0}else{nrow(pa$random.effects)}, k_bias = NA, Model = "PA Only", LL = logLik(pa), KLdiv = calc_KLdiv(pa.pred), MAE = calc_MAE(pa.pred), timing = pa.times, fit_flag = pa$convergence)
-res_popa = data.frame(k = if(is.null(idm$random.effects)){0}else{nrow(idm$random.effects)}, k_bias = if(is.null(idm$random.bias.effects)){0}else{nrow(idm$random.bias.effects)}, Model = "IDM", LL = logLik(idm), KLdiv = calc_KLdiv(idm.pred), MAE = calc_MAE(idm.pred), timing = idm.times, fit_flag = idm$convergence)
+res_po = data.frame(k = if(is.null(po$random.effects)){0}else{nrow(po$random.effects)}, k_bias = NA, Model = "PO Only", LL = logLik(po), KLdiv = calc_KLdiv(po.pred), KLdiv_lambda = calc_KLdiv_lambda(po.pred), MAE = calc_MAE(po.pred), timing = po.times, timing_lambda = po.times, fit_flag = po$convergence)
+res_pa = data.frame(k = if(is.null(pa$random.effects)){0}else{nrow(pa$random.effects)}, k_bias = NA, Model = "PA Only", LL = logLik(pa), KLdiv = calc_KLdiv(pa.pred), KLdiv_lambda = calc_KLdiv_lambda(pa.pred), MAE = calc_MAE(pa.pred), timing = pa.times, timing_lambda = pa.times, fit_flag = pa$convergence)
+res_popa = data.frame(k = if(is.null(idm$random.effects)){0}else{nrow(idm$random.effects)}, k_bias = if(is.null(idm$random.bias.effects)){0}else{nrow(idm$random.bias.effects)}, Model = "IDM", LL = logLik(idm), KLdiv = calc_KLdiv(idm.pred), KLdiv_lambda = calc_KLdiv_lambda(idm.pred_lambda), MAE = calc_MAE(idm.pred), timing = idm.times, timing_lambda = idm.times_lambda, fit_flag = idm$convergence)
 
 # collate the results
 res_tab <- rbind(res_pa, res_po, res_popa)

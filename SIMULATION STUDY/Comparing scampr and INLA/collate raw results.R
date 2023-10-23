@@ -61,6 +61,9 @@ ploterr <- fail.rates.timing[fail.rates.timing$Model %in% c("INLA IDM", "SCAMPR 
 ploterr$Model <- factor(ploterr$Model)
 ploterr$fail.rate <- ploterr$fails / 100
 
+# for text look at the total computation times
+plotdat %>% group_by(Model) %>% summarise(sum(ALL_TIME))
+
 # set the plotting parameters
 
 fill_cols <- c("darkorange1","dodgerblue4","dodgerblue1")

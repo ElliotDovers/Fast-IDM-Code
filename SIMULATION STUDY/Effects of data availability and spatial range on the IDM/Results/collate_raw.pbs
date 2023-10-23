@@ -1,0 +1,12 @@
+#!/bin/bash
+	
+#PBS -N IDM_sims_collate
+#PBS -l mem=19gb
+#PBS -l walltime=11:59:59
+
+cd $HOME/IDM_RANGE_SIMS/Simplified_Sims/Results
+
+module purge
+module add r/4.2.2
+
+Rscript collate_raw_results.R

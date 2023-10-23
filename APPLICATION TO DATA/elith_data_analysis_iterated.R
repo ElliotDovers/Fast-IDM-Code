@@ -25,9 +25,9 @@ if(!require(pROC, quietly = T)){
 # Perform the spatial k-fold cross-validation #
 
 # TOGGLE TO DETERMINE SIMULATION/JOB NUMBER (THESE CORRESPOND TO SPECIES 1-29)
-job = 1 # run the first job for example
+# job = 1 # run the first job for example
 # determine job number from pbs script
-# job = as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
+job = as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
 
 # some hard-coded info
 r = "NSW"
@@ -211,6 +211,9 @@ pa_preds <- list()
 po_preds <- list()
 idm0_preds <- list()
 idm_preds <- list()
+po_preds_lambda <- list()
+pa_preds_lambda <- list()
+idm_preds_lambda <- list()
 for (k in 1:K) {
   # combine the training data
   tmp.dat_pa <- do.call("rbind", fold.list_pa[-k])
@@ -232,12 +235,17 @@ for (k in 1:K) {
   # fit the base scampr models
   base_po <- scampr(pa.forward[[k]]$formula, data = tmp.dat_po, include.sre = F, model.type = "PO", sre.approx = "laplace")
   base_pa <- scampr(pa.forward[[k]]$formula, data = tmp.dat_pa, include.sre = F, model.type = "PA", sre.approx = "laplace")
-  base_idm <- scampr(pa.forward[[k]]$formula, data = tmp.dat_po, bias.formula = ~ 1, IDM.presence.absence.df = tmp.dat_pa, include.sre = F, model.type = "IDM", sre.approx = "laplace")
+  base_idm <- scampr(pa.forward[[k]]$formula, data = tmp.dat_po, bias.formula = ~ 1, IDM.presence.absence.df = tmp.dat_pa, include.sre = F, model.type = "IDM", sre.approx = "laplace", latent.po.biasing = F)
   
-  # fit the PA model
+   # fit the PA model
   res_pa[[k]] <- basis.search.pa(base_pa, domain.data = dat_po[dat_po$occ == 0, ], return.model = T, start.nodes = 10)
   # fit the PO model
   res_po[[k]] <- basis.search.po(base_po, domain.data = dat_po[dat_po$occ == 0, ], return.model = T, start.nodes = 10)
+  # if (length(unique(tmp.dat_po$occ)) < 2) {
+  #   res_po[[k]] <- base_po
+  # } else {
+  #   
+  # }
   # fit the IDM
   if (is.null(res_pa[[k]]$basis.functions) & is.null(res_po[[k]]$basis.functions)) {
     res_idm[[k]] <- base_idm
@@ -257,21 +265,54 @@ for (k in 1:K) {
   po_preds[[k]] <- predict(res_po[[k]], newdata = fold.list_pa[[k]])
   idm_preds[[k]] <- predict(res_idm[[k]], newdata = fold.list_pa[[k]])
   idm0_preds[[k]] <- predict(base_idm, newdata = fold.list_pa[[k]])
+  po_preds_lambda[[k]] <- predict(res_po[[k]], newdata = fold.list_po[[k]], include.bias.accounting = T)
+  pa_preds_lambda[[k]] <- predict(res_pa[[k]], newdata = fold.list_po[[k]], include.bias.accounting = T)
+  idm_preds_lambda[[k]] <- predict(res_idm[[k]], newdata = fold.list_po[[k]], include.bias.accounting = T)
 }
-# creat a temporary df to store the test data responses in same order as predictions
+# create a temporary df to store the test data responses in same order as predictions
 tmp <- data.frame(ys = do.call("c", lapply(fold.list_pa, function(x){x$occ})))
 # combine the predictions for each model into a vector
 tmp$pres.prob_pa <- do.call("c", lapply(pa_preds, function(x){1-exp(-exp(x))}))
 tmp$pres.prob_po <- do.call("c", lapply(po_preds, function(x){1-exp(-exp(x))}))
 tmp$pres.prob_idm <- do.call("c", lapply(idm_preds, function(x){1-exp(-exp(x))}))
-# get the test data response in the same order as the predictions - check that the fold wasn't excluded due to PA split
-ys <- do.call("c", lapply(fold.list_pa, function(x){x$occ}))
+
+# create a temporary df to store the test data responses in same order as predictions
+tmp_po <- data.frame(ys = do.call("c", lapply(fold.list_po, function(x){x$occ})))
+# combine the predictions for each model into a vector
+tmp_po$pres.prob_pa <- do.call("c", lapply(pa_preds_lambda, function(x){1-exp(-exp(x))}))
+tmp_po$pres.prob_po <- do.call("c", lapply(po_preds_lambda, function(x){1-exp(-exp(x))}))
+tmp_po$pres.prob_idm <- do.call("c", lapply(idm_preds_lambda, function(x){1-exp(-exp(x))}))
+
 # calculate the OOS AUC
 res <- data.frame(model = c("pa", "po", "idm"), job = job, spid = s,
                   auc = c(as.numeric(auc(with(tmp, roc(ys, as.vector(pres.prob_pa), quiet = T)))),
                           as.numeric(auc(with(tmp, roc(ys, as.vector(pres.prob_po), quiet = T)))),
                           as.numeric(auc(with(tmp, roc(ys, as.vector(pres.prob_idm), quiet = T))))
+                  ),
+                  auc_lambda = c(as.numeric(auc(with(tmp_po, roc(ys, as.vector(pres.prob_pa), quiet = T)))),
+                          as.numeric(auc(with(tmp_po, roc(ys, as.vector(pres.prob_po), quiet = T)))),
+                          as.numeric(auc(with(tmp_po, roc(ys, as.vector(pres.prob_idm), quiet = T))))
                   )
 )
 
-save(list = c("res"), file = paste0("Results/", s, "_job_", job, ".RDATA"))
+## example fits ################################################################
+
+source("idm_scampr.R")
+source("idm_inla.R")
+
+# set the model formula
+form <- occ ~ cti + disturb + mi + rainann + raindq + rugged + soildepth +
+                 soilfert + solrad + tempann + tempmin + topo + I(cti^2) +
+                 I(mi^2) + I(rainann^2) + I(raindq^2) + I(rugged^2) + I(soildepth^2) +
+                 I(solrad^2) + I(tempann^2) + I(tempmin^2) + I(topo^2)
+
+scampr.time <- system.time(assign("m_scampr", idm_scampr(form = form, dat_pa = dat_pa, dat_po = dat_po, domain = dat)))
+# m_scampr$timing <- scampr.time
+attr(res, "scampr.time") <- scampr.time
+
+inla.time <- system.time(assign("m_inla", idm_inla(form = form, dat_pa = dat_pa, dat_po = dat_po, domain = dat)))
+# m_inla$timing <- inla.time
+attr(res, "inla.time") <- inla.time
+
+# save(list = c("res", "m_scampr", "m_inla"), file = paste0("Results/", s, "_job_", job, ".RDATA"))
+save(res, file = paste0("Results/", s, "_job_", job, ".RDATA"))
