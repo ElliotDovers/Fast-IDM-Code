@@ -25,9 +25,9 @@ if(!require(pROC, quietly = T)){
 # Perform the spatial k-fold cross-validation #
 
 # TOGGLE TO DETERMINE SIMULATION/JOB NUMBER (THESE CORRESPOND TO SPECIES 1-29)
-# job = 1 # run the first job for example
+job = 1 # run the first job for example
 # determine job number from pbs script
-job = as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
+# job = as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
 
 # some hard-coded info
 r = "NSW"

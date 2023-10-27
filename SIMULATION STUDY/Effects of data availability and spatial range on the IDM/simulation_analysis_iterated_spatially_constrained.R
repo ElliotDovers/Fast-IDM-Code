@@ -43,9 +43,9 @@ if(!require(spatstat, quietly = T)){
 tab <- read.csv("job_array.csv")
 
 # TOGGLE TO DETERMINE SIMULATION/JOB NUMBER
-# job = 1 # run the first job for example
+job = 1 # run the first job for example
 # determine job number from pbs script
-job = as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
+# job = as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
 
 ################################################################################
 # Set parameters that define the scenarios:
@@ -97,13 +97,13 @@ c(n_pa = sum(structured_data$present), n_po = nrow(unstructured_data), ratio = s
 ################################################################################
 # Interpolate some covariate at x, y locations #################################
 interp.covar <- function(x.loc, y.loc, covar.name, data = quad){
-  
+
   # turn the quadrature into a spatial pixels data frame
   sp.quad <- sp::SpatialPixelsDataFrame(points = quad[,c("x", "y")], data = quad[ , !colnames(quad) %in% c("x", "y", "quad.size")])
-  
+
   # turn coordinates into SpatialPoints object:
-  spp = sp::SpatialPoints(data.frame(x = x.loc,y = y.loc)) 
-  
+  spp = sp::SpatialPoints(data.frame(x = x.loc,y = y.loc))
+
   # Extract elevation values at spp coords, from our elev SpatialGridDataFrame
   v <- sp::over(spp, sp.quad[ , covar.name])
   v[is.na(v)] = 0 # NAs are a problem! Remove them
@@ -190,7 +190,7 @@ po <- basis.search.po(po0, domain.data = quad[,c("x","y")], return.model = T, ma
 po.pred <- predict(po, newdata = quad)
 po.pred_sc <- predict(po, newdata = quad_sc)
 po.pred_po <- po.pred
-  
+
 # IDM ########################################################################
 
 # fit the base model without SRE
