@@ -235,7 +235,7 @@ for (k in 1:K) {
   # fit the base scampr models
   base_po <- scampr(pa.forward[[k]]$formula, data = tmp.dat_po, include.sre = F, model.type = "PO", sre.approx = "laplace")
   base_pa <- scampr(pa.forward[[k]]$formula, data = tmp.dat_pa, include.sre = F, model.type = "PA", sre.approx = "laplace")
-  base_idm <- scampr(pa.forward[[k]]$formula, data = tmp.dat_po, bias.formula = ~ 1, IDM.presence.absence.df = tmp.dat_pa, include.sre = F, model.type = "IDM", sre.approx = "laplace", latent.po.biasing = F)
+  base_idm <- scampr(pa.forward[[k]]$formula, data = tmp.dat_po, bias.formula = ~ 1, pa.data = tmp.dat_pa, include.sre = F, model.type = "IDM", sre.approx = "laplace", latent.po.biasing = F)
   
    # fit the PA model
   res_pa[[k]] <- basis.search.pa(base_pa, domain.data = dat_po[dat_po$occ == 0, ], return.model = T, start.nodes = 10)

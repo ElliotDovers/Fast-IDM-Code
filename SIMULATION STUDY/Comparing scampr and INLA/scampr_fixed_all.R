@@ -34,11 +34,11 @@ scampr_fixed_all <- function(structured_data, unstructured_data, quad, pred, dom
   # IDM ########################################################################
 
   # fit the base model without SRE
-  idm0 <<- scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, IDM.presence.absence.df = structured_data, include.sre = F, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T)
+  idm0 <<- scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, pa.data = structured_data, include.sre = F, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T)
   # fit the model with SRE
-  try(assign("idm", scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, IDM.presence.absence.df = structured_data, include.sre = T, basis.functions = bfs, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T, po.biasing.basis.functions = bfs, starting.pars = idm0)))
+  try(assign("idm", scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, pa.data = structured_data, include.sre = T, basis.functions = bfs, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T, po.biasing.basis.functions = bfs, starting.pars = idm0)))
   if (!exists("idm")) {
-    idm <- scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, IDM.presence.absence.df = structured_data, include.sre = T, basis.functions = bfs, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T, po.biasing.basis.functions = bfs)
+    idm <- scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, pa.data = structured_data, include.sre = T, basis.functions = bfs, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T, po.biasing.basis.functions = bfs)
   }
   # predict the mean abundance rate of the prediction points
   idm_pred.time <- system.time(assign("idm.pred", predict(idm, newdata = pred)))

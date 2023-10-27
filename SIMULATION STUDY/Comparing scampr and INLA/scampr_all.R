@@ -32,7 +32,7 @@ scampr_all <- function(structured_data, unstructured_data, quad, pred, domain.da
   # IDM ########################################################################
   
   # # fit the base model without SRE
-  # idm0 <- scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, IDM.presence.absence.df = structured_data, include.sre = F, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T)
+  # idm0 <- scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, pa.data = structured_data, include.sre = F, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T)
   # # perform the basis opt.
   # idm <- do.call("basis.search.idm", list(object = idm0, domain.data = domain.data, return.model = T))
   # # predict the mean abundance rate of the prediction points
@@ -43,7 +43,7 @@ scampr_all <- function(structured_data, unstructured_data, quad, pred, domain.da
   # IDM with fixed basis functions from the previous ###########################
 
   # # fit the base model without SRE
-  # idm0 <- scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, IDM.presence.absence.df = structured_data, include.sre = F, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T)
+  # idm0 <- scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, pa.data = structured_data, include.sre = F, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T)
   # # perform the basis opt.
   # if (is.null(pa$basis.functions)) { # in case the PA model has no SRE
   #   idm2 <- do.call("update", list(object = idm0, include.sre = T, basis.functions = attr(pa, "bfs")[[1]], po.biasing.basis.functions = po$basis.functions))
@@ -56,7 +56,7 @@ scampr_all <- function(structured_data, unstructured_data, quad, pred, domain.da
   # idm2.times <- as.numeric(pa$cpu["basis.search"] + po$cpu["basis.search"] + idm0$cpu["opt"] + idm2$cpu["opt"] + idm2_pred.time[3])
   
   # fit the base model without SRE
-  idm0 <- scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, IDM.presence.absence.df = structured_data, include.sre = F, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T)
+  idm0 <- scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, pa.data = structured_data, include.sre = F, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T)
   # perform the basis opt.
   if (is.null(pa$basis.functions)) { # in case the PA model has no SRE (we need to add in some basis functions so do the smallest)
     if (is.null(po$basis.functions)) {

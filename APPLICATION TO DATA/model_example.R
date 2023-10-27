@@ -139,7 +139,7 @@ form <- as.formula(paste0("occ ~ ", paste(preds, collapse = " + "), " + ", paste
 # fit the base scampr models
 base_po <- scampr(form, data = dat_po, include.sre = F, model.type = "PO", sre.approx = "laplace")
 base_pa <- scampr(form, data = dat_pa, include.sre = F, model.type = "PA", sre.approx = "laplace")
-base_idm <- scampr(form, data = dat_po, bias.formula = ~ 1, IDM.presence.absence.df = dat_pa, include.sre = F, model.type = "IDM", sre.approx = "laplace", latent.po.biasing = F)
+base_idm <- scampr(form, data = dat_po, bias.formula = ~ 1, pa.data = dat_pa, include.sre = F, model.type = "IDM", sre.approx = "laplace", latent.po.biasing = F)
 
 # fit the PA model
 res_pa <- basis.search.pa(base_pa, domain.data = dat_po[dat_po$occ == 0, ], return.model = T, start.nodes = 10, max.basis.functions = 200)

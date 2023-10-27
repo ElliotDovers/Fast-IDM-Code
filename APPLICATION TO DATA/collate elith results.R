@@ -126,7 +126,7 @@ for (i in 1:nrow(nsw_res_pa)) {
 # calculate the differences
 # nsw_res$auc_diff <- nsw_res$auc_idm - nsw_res$auc_pa
 nsw_res_pa$auc_diff <- nsw_res_pa$auc_idm - nsw_res_pa$auc_pa
-nsw_res_po$auc_diff <- nsw_res_po$auc_idm - nsw_res_po$auc_pa
+nsw_res_po$auc_diff <- nsw_res_po$auc_idm - nsw_res_po$auc_po
 
 # create LaTex table for appendix
 library(xtable)
@@ -162,13 +162,14 @@ plot(nsw_res_pa$auc_pa, nsw_res_pa$auc_idm, pch = 21,
      # ylim = c(min(c(nsw_res_pa$auc_idm, nsw_res_po$auc_idm, nsw_res_po$auc_po, nsw_res_pa$auc_pa)), 1),
      xlab = "PA only", ylab = "IDM"#, main = "AUC (out-of-sample)", sub = parse(text = expression("atop(hat(p)[i]~on~the,Presence/Absence~survey~sites)"))
 )
-mtext(side = 3, line = 3, adj=0, cex=1, "AUC (out-of-sample)")
-# mtext(side = 3, line = 0, adj=0, cex=0.7, parse(text = expression("atop(hat(p)[i]~on~the,Presence/Absence~survey~sites)")))
-mtext(side = 3, line = 1.25, adj=0, cex=0.7, text = expression(hat(p)[i]~on~the~presence/absence))
-mtext(side = 3, line = 0.25, adj=0, cex=0.7, text = "survey sites")
+mtext(side = 3, line = 2, adj=0, cex=1.25, expression(AUC~(out-of-sample~~hat(p)[i])))
+mtext(side = 3, line = 0.15, adj=0, cex=0.7, text = expression(IDM~italic("vs.")~PA~only))
+# mtext(side = 3, line = 3, adj=0, cex=1, "AUC (out-of-sample)")
+# mtext(side = 3, line = 1.25, adj=0, cex=0.7, text = expression(hat(p)[i]~on~the~presence/absence))
+# mtext(side = 3, line = 0.25, adj=0, cex=0.7, text = "survey sites")
 abline(a = 0, b = 1, lty = "dashed", lwd = 1.5)
 par(mar = c(5.1,2.05,4.1,2.05))
-plot(nsw_res_po$auc_po, nsw_res_po$auc_idm, pch = 22,
+plot(nsw_res_pa$auc_po, nsw_res_pa$auc_idm, pch = 22,
      bg = colfn(length(nsw_res_po$pres_rate))[order(nsw_res_po$pres_rate)],
      col = colfn(length(nsw_res_po$pres_rate))[order(nsw_res_po$pres_rate)],
      cex = (pt.sizes_po *3) + 0.5,
@@ -177,12 +178,12 @@ plot(nsw_res_po$auc_po, nsw_res_po$auc_idm, pch = 22,
      xlim = c(min(c(nsw_res_po$auc_idm, nsw_res_po$auc_po)), 1),
      # ylim = c(min(c(nsw_res_pa$auc_idm, nsw_res_po$auc_idm)), 1),
      ylim = c(min(c(nsw_res_pa$auc_idm, nsw_res_po$auc_idm)), 1),
-     yaxt = "n",
+     yaxt = "n", ylab = "",
      xlab = "PO only"#, main = parse(text = expression("atop(hat(p)[j]^(PO)*~on~the,Presence-Only~Data~and~Quadrature)"))#, ylab = "IDM"
 )
-# mtext(side = 3, line = 0, adj=0, cex=0.7, parse(text = expression("atop(hat(p)[j]^(PO)*~on~the,Presence-Only~Data~and~Quadrature)")))
-mtext(side = 3, line = 1, adj=0, cex=0.7, text = expression(hat(p)[j]^(PO)*~on~the~presence-only))
-mtext(side = 3, line = 0.15, adj=0, cex=0.7, text = "data and quadrature")
+mtext(side = 3, line = 0.15, adj=0, cex=0.7, text = expression(IDM~italic("vs.")~PO~only))
+# mtext(side = 3, line = 1, adj=0, cex=0.7, text = expression(hat(p)[j]^(PO)*~on~the~presence-only))
+# mtext(side = 3, line = 0.15, adj=0, cex=0.7, text = "data and quadrature")
 abline(a = 0, b = 1, lty = "dashed", lwd = 1.75)
 par(mar = c(0,0,0,0))
 legend_image <- as.raster(matrix(rev(colfn(20)), ncol=1))
@@ -208,10 +209,11 @@ dev.off()
 # for text #####################################################################
 round(sum(timing.inla)/60)
 round(sum(timing.scampr)/60)
-sum(abs(nsw_res_pa$auc_diff) < 0.02)
-sum(abs(nsw_res_po$auc_diff) < 0.02)
+sum(abs(nsw_res_pa$auc_diff) <= 0.02)
+sum(abs(nsw_res_pa$auc_idm - nsw_res_pa$po) < 0.02)
 sum(nsw_res_po$auc_diff > 0.02)
-table(nsw_res_pa$auc_idm - nsw_res_pa$auc_pa >= 0.02)
+table(nsw_res_pa$auc_idm - nsw_res_pa$auc_po > 0.02)
+table(nsw_res_pa$auc_idm - nsw_res_pa$auc_pa > 0.02)
 
 png(filename = paste0(getwd(), "/append_app_results_pa.png"), width = 6.2 * plot.res, height = 3.7 * plot.res, res = plot.res)
 par(mfrow = c(1,4))

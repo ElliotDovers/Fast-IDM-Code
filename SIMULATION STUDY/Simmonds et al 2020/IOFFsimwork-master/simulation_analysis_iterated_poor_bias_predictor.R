@@ -47,9 +47,9 @@ library(deldir)
 tab <- read.csv("job_array.csv")
 
 # TOGGLE TO DETERMINE SIMULATION/JOB NUMBER
-# job = 1 # run the first job for example
+job = 1 # run the first job for example
 # determine job number from pbs script
-job = as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
+# job = as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
 
 ################################################################################
 # Set parameters that define the scenarios:
@@ -282,7 +282,7 @@ if (exists("m.c")) {
   m.c <- NULL
   m.c$result$mlik <- c(NA, NA)
 }
-m.c.s <- scampr::scampr(presence ~ env, data = dat.scampr, bias.formula = ~ 1, IDM.presence.absence.df = structured_data, basis.functions = bfs, sre.approx = "laplace", model.type = "IDM")
+m.c.s <- scampr::scampr(presence ~ env, data = dat.scampr, bias.formula = ~ 1, pa.data = structured_data, basis.functions = bfs, sre.approx = "laplace", model.type = "IDM")
 v.c.s <- validation_function(result=m.c.s, resolution=c(10,10), model_type="joint", unstructured_data=unstructured_data,
                     structured_data = structured_data, dat1 = dat1, summary_results=T, qsize = 1, absolute=FALSE, dim = dim, is.scampr = T)
 
@@ -321,7 +321,7 @@ if (exists("m.e")) {
   m.e$result$mlik <- c(NA, NA)
   rm(tab)
 }
-m.e.s <- scampr::scampr(presence ~ env, data = dat.scampr, bias.formula = ~ bias, IDM.presence.absence.df = structured_data, basis.functions = bfs, sre.approx = "laplace", model.type = "IDM")
+m.e.s <- scampr::scampr(presence ~ env, data = dat.scampr, bias.formula = ~ bias, pa.data = structured_data, basis.functions = bfs, sre.approx = "laplace", model.type = "IDM")
 v.e.s <- validation_function(result=m.e.s, resolution=c(10,10), model_type="jointcov", unstructured_data=unstructured_data,
                     structured_data = structured_data, dat1 = dat1, summary_results=T, absolute=FALSE, dim = dim, is.scampr = T)
 
@@ -341,10 +341,10 @@ if (exists("m.f")) {
   m.f <- NULL
   m.f$result$mlik <- c(NA, NA)
 }
-m.f.s1 <- scampr::scampr(presence ~ env, data = dat.scampr, bias.formula = ~ 1, IDM.presence.absence.df = structured_data, basis.functions = bfs, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T, po.biasing.basis.functions = bfs_bias)
+m.f.s1 <- scampr::scampr(presence ~ env, data = dat.scampr, bias.formula = ~ 1, pa.data = structured_data, basis.functions = bfs, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T, po.biasing.basis.functions = bfs_bias)
 v.f.s1 <- validation_function(result=m.f.s1, resolution=c(10,10), model_type="jointtwo", unstructured_data=unstructured_data,
                              structured_data = structured_data, dat1 = dat1, summary_results=T, absolute=FALSE, dim = dim, is.scampr = T)
-m.f.s2 <- scampr::scampr(presence ~ env, data = dat.scampr, bias.formula = ~ 1, IDM.presence.absence.df = structured_data, basis.functions = bfs_bias, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T, po.biasing.basis.functions = bfs)
+m.f.s2 <- scampr::scampr(presence ~ env, data = dat.scampr, bias.formula = ~ 1, pa.data = structured_data, basis.functions = bfs_bias, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T, po.biasing.basis.functions = bfs)
 v.f.s2 <- validation_function(result=m.f.s2, resolution=c(10,10), model_type="jointtwo", unstructured_data=unstructured_data,
                               structured_data = structured_data, dat1 = dat1, summary_results=T, absolute=FALSE, dim = dim, is.scampr = T)
 

@@ -194,7 +194,7 @@ po.pred_po <- po.pred
 # IDM ########################################################################
 
 # fit the base model without SRE
-idm0 <- scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, IDM.presence.absence.df = structured_data, include.sre = F, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = F)
+idm0 <- scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, pa.data = structured_data, include.sre = F, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = F)
 idm <- basis.search(idm0, domain.data = quad[,c("x","y")], max.basis.functions = 600, return.model = T)
 # predict the mean abundance rate of the prediction points
 idm.pred <- predict(idm, newdata = quad)
@@ -202,7 +202,7 @@ idm.pred_sc <- predict(idm, newdata = quad_sc)
 idm.pred_po <- predict(idm, newdata = quad, include.bias.accounting = T)
 
 # fit the spatialy constrained model
-idm0_sc <- scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, IDM.presence.absence.df = survey, include.sre = F, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = F)
+idm0_sc <- scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, pa.data = survey, include.sre = F, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = F)
 idm_sc <- basis.search(idm0_sc, domain.data = quad[,c("x","y")], max.basis.functions = 600, return.model = T)
 idm_sc.pred <- predict(idm_sc, newdata = quad)
 idm_sc.pred_sc <- predict(idm_sc, newdata = quad_sc)

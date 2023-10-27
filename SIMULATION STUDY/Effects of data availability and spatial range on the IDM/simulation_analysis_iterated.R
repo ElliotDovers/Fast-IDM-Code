@@ -43,9 +43,9 @@ if(!require(spatstat, quietly = T)){
 tab <- read.csv("job_array.csv")
 
 # TOGGLE TO DETERMINE SIMULATION/JOB NUMBER
-# job = 1 # run the first job for example
+job = 1 # run the first job for example
 # determine job number from pbs script
-job = as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
+# job = as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
 
 ################################################################################
 # Set parameters that define the scenarios:
@@ -115,7 +115,7 @@ pa.times <- as.numeric(pa$cpu["basis.search"] + pa_pred.time[3])
 # fit the base model without SRE
 po0 <- scampr(formula = present ~ env, data = dat.scampr, include.sre = F, sre.approx = "laplace", model.type = "PO")
 # perform the basis opt.
-po <- basis.search.po(po0, domain.data = quad[,c("x","y")], return.model = T, max.basis.functions = 600, which.approx = "laplace") # VA approx is fine here as we are going for speed!
+po <- basis.search.po(po0, domain.data = quad[,c("x","y")], return.model = T, max.basis.functions = 600, which.approx = "laplace")
 # predict the mean abundance rate of the prediction points
 po_pred.time <- system.time(assign("po.pred", predict(po, newdata = quad)))
 # collate the timings
@@ -124,7 +124,7 @@ po.times <- as.numeric(po$cpu["basis.search"] + po_pred.time[3])
 # IDM ########################################################################
 
 # fit the base model without SRE
-idm0 <- scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, IDM.presence.absence.df = structured_data, include.sre = F, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T)
+idm0 <- scampr(present ~ env, data = dat.scampr, bias.formula = ~ 1, pa.data = structured_data, include.sre = F, sre.approx = "laplace", model.type = "IDM", latent.po.biasing = T)
 # perform the basis opt.
 if (is.null(pa$basis.functions)) { # in case the PA model has no SRE (we need to add in some basis functions so do the smallest)
   if (is.null(po$basis.functions)) {

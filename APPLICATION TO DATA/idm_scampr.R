@@ -9,7 +9,7 @@ idm_scampr <- function(form, dat_pa, dat_po, domain){
   #                  I(solrad^2) + I(tempann^2) + I(tempmin^2) + I(topo^2)
   
   # fit the base model to initialise the basis search (this includes no spatial random effects)
-  base_idm <- scampr(form, data = dat_po, bias.formula = ~ 1, IDM.presence.absence.df = dat_pa, include.sre = F, model.type = "IDM", sre.approx = "laplace", latent.po.biasing = F)
+  base_idm <- scampr(form, data = dat_po, bias.formula = ~ 1, pa.data = dat_pa, include.sre = F, model.type = "IDM", sre.approx = "laplace", latent.po.biasing = F)
   
   # fit the optimised IDM (using the basis search function)
   res_idm <- do.call("basis.search", list(object = base_idm, domain.data = dat_po[dat_po$occ == 0, ], return.model = T, start.nodes = 10, max.basis.functions = 200))
