@@ -7,3 +7,6 @@ by iterating through job = 1:29.
 I sent these to a HPC using 'run_analysis_elith_iterated.pbs'
 
 'collate elith results.R' - consolidates the individual species results and creates the plots from the manuscript
+
+`model_example.R' runs the example species presented in the manuscript
+`idm_scampr.R` and `idm_inla.R` fit the same IDM for comparing computation times on these data
