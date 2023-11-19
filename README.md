@@ -1,6 +1,8 @@
 # Fast-IDM-Code
 This repo accompanies the manuscript "Fast methods for fitting species distribution models
-from integrated data" to replicate both the simulations and real data analyses therein. 
+from integrated data" published in Methods in Ecology and Evolution:
+[https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.14252](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.14252)
+The code can be used to replicate both the simulations and real data analyses therein.
 
 ## SIMULATION STUDY
 Contains the three simulation studies explored in the paper:
