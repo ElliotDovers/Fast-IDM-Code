@@ -153,4 +153,4 @@ res_tab$n_po <- nrow(unstructured_data)
 res_tab$n_pres_pa <- sum(structured_data$present)
 
 # save the simulation result table in folder "Results" inside the base dir
-save(list = "res_tab", file = paste0(getwd(), "/Results/res_", job, ".RDATA"))
+save(list = "res_tab", file = paste0(getwd(), "/Results_all/res_", job, ".RDATA"))
