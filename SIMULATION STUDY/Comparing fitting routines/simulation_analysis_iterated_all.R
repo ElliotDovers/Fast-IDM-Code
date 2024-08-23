@@ -68,14 +68,22 @@ job = as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
 
 # random seed / simulation number
 seed = tab$sim[tab$job == job]
+# # environment range of effect
+# env.range = tab$env_range[tab$job == job]
+# # latent range of effect
+# lat.range = tab$lat_range[tab$job == job]
+# # bias field range of effect
+# bias.range = tab$bias_range[tab$job == job]
 # environment range of effect
-env.range = tab$env_range[tab$job == job]
+env.range = 15
 # latent range of effect
-lat.range = tab$lat_range[tab$job == job]
+lat.range = 25
 # bias field range of effect
-bias.range = tab$bias_range[tab$job == job]
+bias.range = 30
 # model
 model_to_test <- tab$fit_model[tab$job == job]
+# field approximation dimension
+fld_dim <- tab$fld_dim[tab$job == job]
 
 ##############################################################################
 # Interpolate some covariate at x, y locations ###############################
@@ -115,7 +123,7 @@ domain.data <- attr(structured_data, "truth.grid")
 
 ################################################################################
 # create the INLA mesh to be used. Max edge length of 10 units should be fine enough to model the latent field (25 units) and bias field (20 units)
-tmp.time <- system.time(assign("mesh", inla.mesh.2d(loc.domain = domain.data[ , c("x", "y")], max.edge=c(10,30), cutoff=2, offset = c(5,20))))
+tmp.time <- system.time(assign("mesh", inla.mesh.2d(loc.domain = domain.data[ , c("x", "y")], max.edge=c(5,10), cutoff=2, offset = c(5,10), max.n.strict = c(fld_dim, 0))))
 mesh$timing.init <- tmp.time[3]
 
 # set the quadrature
@@ -130,16 +138,16 @@ if (model_to_test == "INLA") {
   res <- inla_all(structured_data = structured_data, unstructured_data = unstructured_data, quad = quad, mesh = mesh, pred = pred)
 } else if (model_to_test == "SCAMPR") {
   source("scampr_all.R")
-  res <- scampr_all(structured_data = structured_data, unstructured_data = unstructured_data, quad = quad, pred = pred, domain.data = domain.data, prune.n = 4)
+  res <- scampr_all(structured_data = structured_data, unstructured_data = unstructured_data, quad = quad, pred = pred, domain.data = domain.data)
 } else if (model_to_test == "SCAMPR FIXED") {
   source("scampr_fixed_all.R")
-  res <- scampr_fixed_all(structured_data = structured_data, unstructured_data = unstructured_data, quad = quad, pred = pred, domain.data = domain.data, prune.n = 4)
+  res <- scampr_fixed_all(structured_data = structured_data, unstructured_data = unstructured_data, quad = quad, pred = pred, domain.data = domain.data, fld_dim = fld_dim)
 } else if (model_to_test == "MGCV") {
   source("mgcv_all.R")
-  res <- mgcv_all(structured_data = structured_data, unstructured_data = unstructured_data, quad = quad, pred = pred, domain.data = domain.data)
+  res <- mgcv_all(structured_data = structured_data, unstructured_data = unstructured_data, quad = quad, pred = pred, domain.data = domain.data, fld_dim = fld_dim)
 } else {
   source("mgcv_fixed_all.R")
-  res <- mgcv_fixed_all(structured_data = structured_data, unstructured_data = unstructured_data, quad = quad, pred = pred, domain.data = domain.data)
+  res <- mgcv_fixed_all(structured_data = structured_data, unstructured_data = unstructured_data, quad = quad, pred = pred, domain.data = domain.data, fld_dim = fld_dim)
 }
 
 # collate with sim info

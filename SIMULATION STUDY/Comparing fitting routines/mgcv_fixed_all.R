@@ -1,6 +1,6 @@
 ## Function to run all scampr models (IDM, PA and PO only) with simulated data
 
-mgcv_fixed_all <- function(structured_data, unstructured_data, quad, pred, domain.data, prune.n = 4){
+mgcv_fixed_all <- function(structured_data, unstructured_data, quad, pred, domain.data, fld_dim = 100){
   
   library(fields)
   
@@ -36,7 +36,7 @@ mgcv_fixed_all <- function(structured_data, unstructured_data, quad, pred, domai
   # PA only model ##############################################################
   
   # fit the model
-  pa.time <- system.time(assign("pa", gam(resp ~ env + s(x, y, bs = "gp", k = 100, m = c(3, max_pp_dist)),
+  pa.time <- system.time(assign("pa", gam(resp ~ env + s(x, y, bs = "gp", k = fld_dim, m = c(3, max_pp_dist)),
                                             family=binomial(link = "cloglog"),
                                             data=d1, method = "REML")
   ))
@@ -50,7 +50,7 @@ mgcv_fixed_all <- function(structured_data, unstructured_data, quad, pred, domai
   # PO only model ##############################################################
 
   # fit the model
-  po.time <- system.time(assign("po", gam(resp ~ env + s(x, y, bs = "gp", k = 100, m = c(3, max_pp_dist)),
+  po.time <- system.time(assign("po", gam(resp ~ env + s(x, y, bs = "gp", k = fld_dim, m = c(3, max_pp_dist)),
                                           family=poisson,
                                           data=d2, method = "REML")
   ))
@@ -63,7 +63,7 @@ mgcv_fixed_all <- function(structured_data, unstructured_data, quad, pred, domai
   # IDM ########################################################################
 
   # fit the model - NOTE APPEARS THAT IF pho IS TOO LARGE THEN INTERCEPT BECOMES UNIDENTIFIABLE!
-  idm.time <- system.time(assign("idm", gam(cbind(resp, source) ~ source_f + env + s(x, y, bs = "gp", k = 100, m = c(3, 50)) + s(x, y, bs = "gp", k = 100, by = po_id, m = c(3, 50)),
+  idm.time <- system.time(assign("idm", gam(cbind(resp, source) ~ source_f + env + s(x, y, bs = "gp", k = fld_dim, m = c(3, max_pp_dist)) + s(x, y, bs = "gp", k = fld_dim, by = po_id, m = c(3, max_pp_dist)),
                 family=gfam(list(binomial(link = "cloglog"), poisson)),
                 data=idat, method = "REML")
   ))
@@ -97,7 +97,11 @@ mgcv_fixed_all <- function(structured_data, unstructured_data, quad, pred, domai
                         TIME_FINAL_FIT = c(pa.time[3], po.time[3], idm.time[3]),
                         TIME_PRED = c(pa_pred.time[3], po_pred.time[3], idm_pred.time[3]),
                         RHO_PA = c(max_pp_dist, NA, max_pp_dist),
-                        RHO_PO = c(NA, max_pp_dist, max_pp_dist)
+                        RHO_PO = c(NA, max_pp_dist, max_pp_dist),
+                        BETA_ENV = c(pa$coefficients["env"],
+                                     po$coefficients["env"],
+                                     idm$coefficients["env"]),
+                        ACUTAL_DIM = c(pa$smooth[[1]]$bs.dim, po$smooth[[1]]$bs.dim, sum(unlist(lapply(idm$smooth, function(x){x$bs.dim}))))
   )
   # # alter the PA search results to combine
   # tmp.pa <- attr(pa, "search.res")

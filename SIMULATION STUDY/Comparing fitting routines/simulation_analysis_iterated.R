@@ -121,6 +121,7 @@ domain.data <- attr(structured_data, "truth.grid")
 ################################################################################
 # create the INLA mesh to be used. Max edge length of 10 units should be fine enough to model the latent field (25 units) and bias field (20 units)
 tmp.time <- system.time(assign("mesh", inla.mesh.2d(loc.domain = domain.data[ , c("x", "y")], max.edge=c(10,30), cutoff=2, offset = c(5,20))))
+# tmp.time <- system.time(assign("mesh", inla.mesh.2d(loc.domain = domain.data[ , c("x", "y")], max.edge=c(5,10), cutoff=2, offset = c(5,10), max.n.strict = c(n_mesh, 0))))
 mesh$timing.init <- tmp.time[3]
 # get the boundary for the domain
 bnd <- t(matrix(c(min(domain.data$x),min(domain.data$x),max(domain.data$x),min(domain.data$x),max(domain.data$x),max(domain.data$y),min(domain.data$y),max(domain.data$y),min(domain.data$y),min(domain.data$y)), 2))
@@ -218,10 +219,10 @@ if (model_to_test == "INLA PA") {
   res <- inla_idm(structured_data = structured_data, unstructured_data = unstructured_data, quad = quad, mesh = mesh, pred = pred)
 } else if (model_to_test == "SCAMPR") {
   source("scampr_all.R")
-  res <- scampr_all(structured_data = structured_data, unstructured_data = unstructured_data, quad = quad, pred = pred, domain.data = domain.data, prune.n = 4)
+  res <- scampr_all(structured_data = structured_data, unstructured_data = unstructured_data, quad = quad, pred = pred, domain.data = domain.data)
 } else if (model_to_test == "SCAMPR FIXED") {
   source("scampr_fixed_all.R")
-  res <- scampr_fixed_all(structured_data = structured_data, unstructured_data = unstructured_data, quad = quad, pred = pred, domain.data = domain.data, prune.n = 4)
+  res <- scampr_fixed_all(structured_data = structured_data, unstructured_data = unstructured_data, quad = quad, pred = pred, domain.data = domain.data)
 } else if (model_to_test == "MGCV") {
   source("mgcv_all.R")
   res <- mgcv_all(structured_data = structured_data, unstructured_data = unstructured_data, quad = quad, pred = pred, domain.data = domain.data)
@@ -241,4 +242,4 @@ res_tab$n_po <- nrow(unstructured_data)
 res_tab$n_pres_pa <- sum(structured_data$present)
 
 # save the simulation result table in folder "Results" inside the base dir
-save(list = "res_tab", file = paste0(getwd(), "/Results_all/res_", job, ".RDATA"))
+save(list = "res_tab", file = paste0(getwd(), "/Results/res_", job, ".RDATA"))

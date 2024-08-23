@@ -1,13 +1,13 @@
 ## Function to run all scampr models (IDM, PA and PO only) with simulated data
 
-scampr_fixed_all <- function(structured_data, unstructured_data, quad, pred, domain.data, prune.n = 4){
+scampr_fixed_all <- function(structured_data, unstructured_data, quad, pred, domain.data, fld_dim = 100){
   
   # add a presence identifier to the quadrature
   quad$present <- 0
   # created stacked unstructured_data and quad to be used as the data for scampr models
   dat.scampr <- rbind(unstructured_data, quad)
   # set a fixed basis configuration
-  bfs <<- simple_basis(10, data = domain.data)
+  bfs <<- simple_basis(sqrt(fld_dim), data = domain.data)
 
   # PA only model ##############################################################
   
@@ -71,7 +71,19 @@ scampr_fixed_all <- function(structured_data, unstructured_data, quad, pred, dom
                         TIME_FINAL_FIT = c(pa$cpu["opt"], po$cpu["opt"], idm$cpu["opt"]),
                         TIME_PRED = c(pa_pred.time[3], po_pred.time[3], idm_pred.time[3]),
                         RHO_PA = c(if (is.null(pa$basis.functions)) {0} else {pa$basis.functions$scale[1]}, NA, if (is.null(pa$basis.functions)) {0} else {pa$basis.functions$scale[1]}),
-                        RHO_PO = c(NA, if (is.null(po$basis.functions)) {0} else {po$basis.functions$scale[1]}, if (is.null(po$basis.functions)) {0} else {po$basis.functions$scale[1]})
+                        RHO_PO = c(NA, if (is.null(po$basis.functions)) {0} else {po$basis.functions$scale[1]}, if (is.null(po$basis.functions)) {0} else {po$basis.functions$scale[1]}),
+                        BETA_ENV = c(pa$coefficients["env"],
+                                     po$coefficients["env"],
+                                     idm$coefficients["env"]),
+                        ACUTAL_DIM = c(if (is.null(pa$basis.functions)) {0} else {nrow(pa$basis.functions)}, if (is.null(po$basis.functions)) {0} else {nrow(po$basis.functions)},
+                                       if (is.null(pa$basis.functions) & is.null(po$basis.functions)) {0} else {
+                                         if (is.null(pa$basis.functions) & !is.null(po$basis.functions)) {nrow(po$basis.functions)} else {
+                                           if (!is.null(pa$basis.functions) & is.null(po$basis.functions)) {nrow(pa$basis.functions)} else {
+                                             if (!is.null(pa$basis.functions) & !is.null(po$basis.functions)) {nrow(po$basis.functions) + nrow(pa$basis.functions)}
+                                            }
+                                           }
+                                         }
+                                       )
   )
   # # alter the PA search results to combine
   # tmp.pa <- attr(pa, "search.res")

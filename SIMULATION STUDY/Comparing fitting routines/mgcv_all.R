@@ -1,6 +1,6 @@
 ## Function to run all scampr models (IDM, PA and PO only) with simulated data
 
-mgcv_all <- function(structured_data, unstructured_data, quad, pred, domain.data, prune.n = 4){
+mgcv_all <- function(structured_data, unstructured_data, quad, pred, domain.data, fld_dim = 100){
   
   ## wrapper functions to optimise for spatial range parameter #################
   gam_pa <- function(formula, data, weights = NULL, coord.names = c("x", "y"), k = 100, range.interval, opt.tolerance = 3,
@@ -22,18 +22,25 @@ mgcv_all <- function(structured_data, unstructured_data, quad, pred, domain.data
     # get the response variable out of the formula
     resp <- all.vars(formula[[2]])
     data$response <- data[ , resp]
+    # evaluate the k value within the function so it can be deparsed irrespective of being default or otherwise
+    call.list$k <- k
     
     # alter the call
     call.list$family <- binomial(link = "cloglog")
     call.list$data <- data
     call.list$method <- "REML"
     # update the formula for an initial fit
-    call.list$formula <- as.formula(paste0("response ~ ", as.character(formula)[3], " + s(", paste(coord.names, collapse = ", "), ", bs=\"gp\", k=", deparse(k), ", m=3)"))
+    call.list$formula <- as.formula(paste0("response ~ ", as.character(formula)[3], " + s(", paste(coord.names, collapse = ", "), ", bs=\"gp\", k=", deparse(call.list$k), ", m=3)"))
     # remove the function of the call
     call.list[[1]] <- NULL
+    call.list$k <- NULL
     # fit an initial model to obtain warm starting parameters
     time0 <- system.time(assign("init.mod", do.call(mgcv::gam, call.list)))
     # return(list(init.mod, time0))
+    
+    # re-assign k
+    k <- init.mod$smooth[[length(init.mod$smooth)]]$bs.dim
+    
     warm.starts <- init.mod$coefficients
     warm.starts[(length(init.mod$coefficients) - (k - 1) + 1):length(init.mod$coefficients)] <- 0 # retain only the non-smooth coefficients
     # update the starting parameters
@@ -74,18 +81,25 @@ mgcv_all <- function(structured_data, unstructured_data, quad, pred, domain.data
     # get the response variable out of the formula
     resp <- all.vars(formula[[2]])
     data$response <- data[ , resp]
+    # evaluate the k value within the function so it can be deparsed
+    call.list$k <- k
     
     # alter the call
     call.list$family <- poisson()
     call.list$data <- data
     call.list$method <- "REML"
     # update the formula for an initial fit
-    call.list$formula <- as.formula(paste0("response ~ ", as.character(formula)[3], " + s(", paste(coord.names, collapse = ", "), ", bs=\"gp\", k=", deparse(k), ", m=3)"))
+    call.list$formula <- as.formula(paste0("response ~ ", as.character(formula)[3], " + s(", paste(coord.names, collapse = ", "), ", bs=\"gp\", k=", deparse(call.list$k), ", m=3)"))
     # remove the function of the call
     call.list[[1]] <- NULL
+    call.list$k <- NULL
     # fit an initial model to obtain warm starting parameters
     time0 <- system.time(assign("init.mod", do.call(mgcv::gam, call.list)))
     # return(list(init.mod, time0))
+    
+    # re-assign k
+    k <- init.mod$smooth[[length(init.mod$smooth)]]$bs.dim
+    
     warm.starts <- init.mod$coefficients
     warm.starts[(length(init.mod$coefficients) - (k - 1) + 1):length(init.mod$coefficients)] <- 0 # retain only the non-smooth coefficients
     # update the starting parameters
@@ -151,7 +165,7 @@ mgcv_all <- function(structured_data, unstructured_data, quad, pred, domain.data
   # PA only model ##############################################################
   
   # fit the model
-  pa.time <- system.time(assign("pa", gam_pa(resp ~ env, data = d1, range.interval = c(min_pp_dist, max_pp_dist))))
+  pa.time <- system.time(assign("pa", gam_pa(resp ~ env, data = d1, k = fld_dim, range.interval = c(min_pp_dist, max_pp_dist))))
   # pa_scampr <- scampr(formula = present ~ env, data = structured_data, include.sre = T, basis.functions = bfs, sre.approx = "laplace", model.type = "PA")
   
   # predict the mean abundance rate of the prediction points
@@ -164,7 +178,7 @@ mgcv_all <- function(structured_data, unstructured_data, quad, pred, domain.data
   # PO only model ##############################################################
 
   # fit the model
-  po.time <- system.time(assign("po", gam_po(resp ~ env, data = d1, range.interval = c(min_pp_dist, max_pp_dist))))
+  po.time <- system.time(assign("po", gam_po(resp ~ env, data = d2, k = fld_dim, range.interval = c(min_pp_dist, max_pp_dist))))
   # po_scampr <- scampr(formula = present ~ env, data = dat.scampr, include.sre = T, basis.functions = bfs, sre.approx = "laplace", model.type = "PO")
   
   # predict the mean abundance rate of the prediction points
@@ -177,7 +191,7 @@ mgcv_all <- function(structured_data, unstructured_data, quad, pred, domain.data
   # IDM ########################################################################
 
   # fit the model - NOTE APPEARS THAT IF pho IS TOO LARGE THEN INTERCEPT BECOMES UNIDENTIFIABLE!
-  idm.time <- system.time(assign("idm", gam(cbind(resp, source) ~ source_f + env + s(x, y, bs = "gp", k = 100, m = c(3, rho_pa)) + s(x, y, bs = "gp", k = 100, by = po_id, m = c(3, rho_po)),
+  idm.time <- system.time(assign("idm", gam(cbind(resp, source) ~ source_f + env + s(x, y, bs = "gp", k = fld_dim, m = c(3, rho_pa)) + s(x, y, bs = "gp", k = fld_dim, by = po_id, m = c(3, rho_po)),
                 family=gfam(list(binomial(link = "cloglog"), poisson)),
                 data=idat, method = "REML")
   ))
@@ -211,7 +225,11 @@ mgcv_all <- function(structured_data, unstructured_data, quad, pred, domain.data
                         TIME_FINAL_FIT = c(pa$timing_final_fit, po$timing_final_fit, idm.time[3]),
                         TIME_PRED = c(pa_pred.time[3], po_pred.time[3], idm_pred.time[3]),
                         RHO_PA = c(rho_pa, NA, rho_pa),
-                        RHO_PO = c(NA, rho_po, rho_po)
+                        RHO_PO = c(NA, rho_po, rho_po),
+                        BETA_ENV = c(pa$coefficients["env"],
+                                     po$coefficients["env"],
+                                     idm$coefficients["env"]),
+                        ACUTAL_DIM = c(pa$smooth[[1]]$bs.dim, po$smooth[[1]]$bs.dim, sum(unlist(lapply(idm$smooth, function(x){x$bs.dim}))))
   )
   # # alter the PA search results to combine
   # tmp.pa <- attr(pa, "search.res")

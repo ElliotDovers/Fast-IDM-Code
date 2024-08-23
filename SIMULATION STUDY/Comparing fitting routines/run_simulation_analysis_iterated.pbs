@@ -3,7 +3,7 @@
 #PBS -N 0_MGCV_VS_INLA_VS_SCAMPR
 #PBS -l mem=19gb
 #PBS -l walltime=11:59:59
-#PBS -J 201-400
+#PBS -J 1-700
 
 cd $HOME/IDM_MGCV
 

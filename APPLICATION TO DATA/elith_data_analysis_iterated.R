@@ -29,95 +29,22 @@ job = 1 # run the first job for example
 # determine job number from pbs script
 # job = as.numeric(Sys.getenv("PBS_ARRAY_INDEX"))
 
-# some hard-coded info
-r = "NSW"
-r_size <- 76.18 * 1000 # in meters^2
-# will additionally include ordinal factors as categoricals in NSW
-categoricalvars <- c("vegsys", "disturb", "soilfert")
-flora_groups <- c("ot", "ou", "rt", "ru") # open-forest trees, open-forest understorey plants, rainforest trees, rainforest understorey plants
-
-# reading presence-only and background species data for this region, one file per region:
-presences <- disPo(r)
-background <- disBg(r)
-# reduce to just species of flora
-presences <- presences[presences$group %in% flora_groups, ]
-
-# get the relevant predictors
-preds <- disPredictors(r)
-preds <- preds[-13] # remove vegsys as this factor is likely correlated with the response (as it broadly categorises the main plant types in the area)
-
-# names for all species - from supplementary material associated with Elith el al 2020
-species <- unique(presences$spid)
-# species.info <- unique(presences[,c("spid", "group")])
-# row.names(species.info) <- 1:nrow(species.info)
-# species.info$full_name <- c("Angophora costata",
-#                             "Corymbia gummifera",
-#                             "Corymbia intermedia",
-#                             "Eucalyptus blakelyi",
-#                             "Eucalyptus carnea",
-#                             "Eucalyptus fastigata",
-#                             "Eucalyptus campanulata",
-#                             "Eucalyptus nova-anglica",
-#                             "Cassinia quinquefarina",
-#                             "Lepidosperma laterale",
-#                             "Glycine clandestina",
-#                             "Marsdenia liisae",
-#                             "Imperata cylindrica",
-#                             "Poa sieberiana",
-#                             "Eustrephus latifolius",
-#                             "Acrotriche aggregata",
-#                             "Alectryon subdentantus",
-#                             "Cupaniopsis anacardioides",
-#                             "Diploglottis australis",
-#                             "Heritiera actinophylla",
-#                             "Schizomeria ovata",
-#                             "Syzygium luehmanii",
-#                             "Syzygium luehmanii",
-#                             "Corokia whiteana",
-#                             "Cyathea leichhardtiana",
-#                             "Desmodium acanthocladum",
-#                             "Dicksonia antarctia",
-#                             "Elatostema reticulatum",
-#                             "Tasmannia purpurascens"
-#                             )
-# save(list = "species.info", file = "sp_info.RDATA")
-load("sp_info.RDATA")
-
-# obtain the presence/absence data
-pa_list <- list()
-for (grp in flora_groups) {
-  pa_list[[grp]] <- cbind(disEnv(r, grp), disPa(r, grp)[-(1:4)])
-}
-# Checks that the above is doing what we think
-# dat_pa1 <- disEnv(r, flora_groups[1])
-# pa1 <- disPa(r, flora_groups[1])
-# dat_pa2 <- disEnv(r, flora_groups[2])
-# pa2 <- disPa(r, flora_groups[2])
-# dat_pa3 <- disEnv(r, flora_groups[3])
-# pa3 <- disPa(r, flora_groups[3])
-# dat_pa4 <- disEnv(r, flora_groups[4])
-# pa4 <- disPa(r, flora_groups[4])
-# all(match(pa1$siteid, dat_pa1$siteid) == 1:nrow(dat_pa1))
-# all(match(pa2$siteid, dat_pa2$siteid) == 1:nrow(dat_pa2))
-# all(match(pa3$siteid, dat_pa3$siteid) == 1:nrow(dat_pa3))
-# all(match(pa4$siteid, dat_pa4$siteid) == 1:nrow(dat_pa4))
-
 # get the full domain data grid
 load("nsw_grid.RDATA") # load the pre-prepared full domain data
+
+source("get_and_format_flora_data.R")
 
 # set up the spatial CV folds #
 K <- 4
 
 # over the full region
-dat$fold <- make.spatial.folds(dat, k = K)
+domain$fold <- make.spatial.folds(domain, k = K)
 # over the po data
-presences$fold <- make.spatial.folds(presences, rangeX = range(dat$x), rangeY = range(dat$y), k = K)
+presences$fold <- make.spatial.folds(presences, rangeX = range(domain$x), rangeY = range(domain$y), k = K)
 # over the background points
-background$fold <- make.spatial.folds(background, rangeX = range(dat$x), rangeY = range(dat$y), k = K)
+background$fold <- make.spatial.folds(background, rangeX = range(domain$x), rangeY = range(domain$y), k = K)
 # over the presence/absence data
-for (i in 1:length(pa_list)) {
-  pa_list[[i]]$fold <- make.spatial.folds(pa_list[[i]], rangeX = range(dat$x), rangeY = range(dat$y), k = K)
-}
+dat_pa$fold <- make.spatial.folds(dat_pa, rangeX = range(domain$x), rangeY = range(domain$y), k = K)
 
 # perform some checks on the CV folds
 po_folds <- NULL
@@ -126,10 +53,10 @@ for (i in species) {
 }
 pa_folds <- NULL
 for (i in species) {
-  tmp.pa <- pa_list[[unique(presences[presences$spid == i, "group"])]]
+  tmp.pa <- dat_pa[dat_pa$spid == i, ]
   fold_sums <- NULL
   for (j in levels(tmp.pa$fold)) {
-    fold_sums <- c(fold_sums, sum(tmp.pa[tmp.pa$fold == j , i]))
+    fold_sums <- c(fold_sums, sum(tmp.pa[tmp.pa$fold == j , "occ"]))
   }
   pa_folds <- rbind(pa_folds, data.frame(sp = i, t(fold_sums)))
 }
@@ -141,6 +68,10 @@ for (k in 1:K) {
 }
 missing.sp <- data.frame(species, missing.in.fold)
 colnames(missing.sp) <- c("species", paste0("f", 1:K))
+missing.sp$n_po <- as.numeric(table(presences$spid))
+missing.sp$n_pa <- aggregate(dat_pa$occ, by = list(dat_pa$spid), FUN = sum)$x
+missing.sp$is.missing <- apply(missing.in.fold, 1, any)
+# missing.sp$n_po_ge_20 <- missing.sp$n_po < 20
 
 # plot up the CV
 # nsw.destinations <- cbind.data.frame(x = c(151.2093, 150.8931, 151.7817, 153.1139, 153.6105, 150.9293, 151.6523, 152.8975, 152.0185),
@@ -150,7 +81,7 @@ colnames(missing.sp) <- c("species", paste0("f", 1:K))
 # plot.res <- 500
 # png(filename = paste0(getwd(), "/app_cv_folds.png"), width = 5.3 * plot.res, height = 6.3 * plot.res, res = plot.res)
 # par(mar = c(0, 0, 1.8, 1))
-# plot(vec2im(dat$fold, dat$x, dat$y), box = F, main = "Northern NSW\nSpatially Blocked four-fold CV")
+# plot(vec2im(domain$fold, domain$x, domain$y), box = F, main = "Northern NSW\nSpatially Blocked four-fold CV")
 # text(nsw.destinations$x, nsw.destinations$y, labels = nsw.destinations$name, col = "black")
 # dev.off()
 
@@ -164,37 +95,11 @@ sp_presence <- presences[presences$spid == s, ]
 # add background data
 dat_po <- rbind(sp_presence, background)
 # add in the quadrature weights
-dat_po$quad.size <- r_size / nrow(background)
+dat_po$quad.size <- region_size / nrow(background)
 dat_po$quad.size[dat_po$occ == 1] <- 0 # set quadrature weight to zero at the presence records
 
-# identify the group of the species
-grp <- sp_presence[, "group"][1]
-
-# select out the corresponding PA dataset
-dat_pa <- pa_list[[grp]]
-# rename the species response variable to match the PO data (for scampr models)
-dat_pa$occ <- dat_pa[ , s]
-
-# scale the covariates (according to entire range) and
-# convert categorical vars to factor in both training and testing data. We use the package forcats to ensure that the levels of the factor in the evaluation data match those in the training data, regardless of whether all levels are present in the evaluation data. 
-
-preds.dat <- rbind(dat_po[,preds], dat_pa[,preds]) # this was previously the full NSW data but I have reduced for anonymous code submission
-for(i in preds){
-  if(i %in% categoricalvars){
-    fac_col <- i
-    if (fac_col == "soilfert") { # combining the soil fertility ratings beyond 3
-      dat_po[ ,fac_col][dat_po[ ,fac_col] %in% c(4,5)] <- 3
-      dat_pa[ ,fac_col][dat_pa[ ,fac_col] %in% c(4,5)] <- 3
-    }
-    dat_po[ ,fac_col] <- as.factor(dat_po[ ,fac_col])
-    dat_pa[ ,fac_col] <- as.factor(dat_pa[ ,fac_col])
-    dat_pa[ ,fac_col] <- forcats::fct_expand(dat_pa[,fac_col], levels(dat_po[,fac_col]))
-    dat_pa[ ,fac_col] <- forcats::fct_relevel(dat_pa[,fac_col], levels(dat_po[,fac_col]))
-  } else {
-    dat_po[ , i] <- (dat_po[ , i] - mean(preds.dat[ , i], na.rm = T)) / sd(preds.dat[ , i], na.rm = T)
-    dat_pa[ , i] <- (dat_pa[ , i] - mean(preds.dat[ , i], na.rm = T)) / sd(preds.dat[ , i], na.rm = T)
-  }
-}
+# subsets the PA dataset to this particular species
+dat_pa <- dat_pa[dat_pa$spid == s, ]
 
 ## perform CV ##
 
