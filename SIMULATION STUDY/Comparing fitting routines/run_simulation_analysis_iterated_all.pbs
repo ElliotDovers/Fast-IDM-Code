@@ -5,7 +5,7 @@
 #PBS -l walltime=11:59:59
 #PBS -J 1-2000
 
-cd $HOME/IDM_MGCV
+cd $HOME/IDM_MGCV/SIM
 
 module purge
 module add geos/3.9.1

@@ -1,18 +1,27 @@
 ## Function to run IDM with Elith data
 
-idm_inla <- function(form, dat_pa, dat_po, domain){
+idm_inla <- function(form, dat_pa, pres, quad, domain, fld_dim = NULL, with.predictions = FALSE){
   
   library(INLA)
   
+  # setup the required data structure
+  pres$quad.size <- 1e-6
+  dat_po <- rbind(pres, quad)
+  
   # set the mesh according to the domain points
   # mesh.time <- system.time(assign("mesh", inla.mesh.2d(loc.domain = domain[ , c("x","y")], max.edge=c(0.35,0.5), cutoff=0.05)))
-  mesh <- inla.mesh.2d(loc.domain = domain[ , c("x","y")], max.edge=c(0.35,0.5), cutoff=0.05)
+  if (is.null(fld_dim)) {
+    mesh <- inla.mesh.2d(loc.domain = domain[ , c("x","y")], max.edge=c(25), cutoff=1)
+  } else {
+    mesh <- inla.mesh.2d(loc.domain = domain[ , c("x","y")], max.edge = c(25), cutoff = 1, max.n.strict = fld_dim)
+  }
+  
   
   # set the spde representation to be the mesh with defaults for parameters
   # spde <- inla.spde2.matern(mesh)
   spde <- inla.spde2.pcmatern(mesh,
                               prior.sigma = c(5, 0.01),
-                              prior.range = c(0.1, 0.01)
+                              prior.range = c(1, 0.01)
   )
   
   # make A matrix for structured data
@@ -23,6 +32,11 @@ idm_inla <- function(form, dat_pa, dat_po, domain){
   
   # make A matrix for quadrature points
   quad_data_A <- inla.spde.make.A(mesh = mesh, loc = as.matrix(dat_po[dat_po$occ == 0 , c("x","y")]))
+  
+  if (with.predictions) {
+    # make A matrix for the prediction points
+    pred_data_A <- inla.spde.make.A(mesh = mesh, loc = as.matrix(domain[ , c("x","y")]))
+  }
 
   # Joint model
   
@@ -34,6 +48,7 @@ idm_inla <- function(form, dat_pa, dat_po, domain){
   # set the number of integration points, presence points in PO data and prediction points
   nq <- sum(dat_po$occ == 0)
   n <- sum(dat_po$occ == 1)
+  np <- nrow(domain)
   
   # change data to include 0s for nodes and 1s for presences
   y.pp <- dat_po$occ
@@ -45,65 +60,112 @@ idm_inla <- function(form, dat_pa, dat_po, domain){
   A.pp <- rbind(unstructured_data_A, quad_data_A)
   
   # need to make our own factor contrasts for INLA
+  # fixed.po <- data.frame(get.design.matrix(~ disturb + soilfert, dat_po))
+  # fixed.pa <- data.frame(get.design.matrix(~ disturb + soilfert, dat_pa))
+  # fixed.pred <- data.frame(get.design.matrix(~ disturb + soilfert, domain))
   fixed.po <- data.frame(get.design.matrix(form, dat_po))
   fixed.pa <- data.frame(get.design.matrix(form, dat_pa))
+
+  # po.des.mat.names <- colnames(fixed.po)
+  # fixed.po <- data.frame(fixed.po)
+  # colnames(fixed.po) <- po.des.mat.names
+  colnames(fixed.po)[1] <- "interceptB"
+  colnames(fixed.pa)[1] <- "interceptA"
+
   
-  # unstructured data stack with integration points
+  
+  # # unstructured data stack with integration points
+  # stk_unstructured_data <- inla.stack(data=list(y=cbind(y.pp, NA), e = e.pp),
+  #                                     effects=list(list(data.frame(interceptB=rep(1,nq+n)),
+  #                                                       cti = dat_po$cti,
+  #                                                       disturb2 = fixed.po$disturb2,
+  #                                                       disturb3 = fixed.po$disturb3,
+  #                                                       disturb4 = fixed.po$disturb4,
+  #                                                       mi = dat_po$mi,
+  #                                                       rainann = dat_po$rainann,
+  #                                                       raindq = dat_po$raindq,
+  #                                                       rugged = dat_po$rugged,
+  #                                                       soildepth = dat_po$soildepth,
+  #                                                       soilfert2 = fixed.po$soilfert2,
+  #                                                       soilfert3 = fixed.po$soilfert3,
+  #                                                       solrad = dat_po$solrad,
+  #                                                       tempann = dat_po$tempann,
+  #                                                       tempmin = dat_po$tempmin,
+  #                                                       topo = dat_po$topo
+  #                                     ),
+  #                                     list(uns_field=1:spde$n.spde, bias_field = 1:spde$n.spde)),
+  #                                     A=list(1,A.pp),
+  #                                     tag="po_data")
+  
   stk_unstructured_data <- inla.stack(data=list(y=cbind(y.pp, NA), e = e.pp),
-                                      effects=list(list(data.frame(interceptB=rep(1,nq+n)),
-                                                        cti = dat_po$cti,
-                                                        disturb2 = fixed.po$disturb2,
-                                                        disturb3 = fixed.po$disturb3,
-                                                        disturb4 = fixed.po$disturb4,
-                                                        mi = dat_po$mi,
-                                                        rainann = dat_po$rainann,
-                                                        raindq = dat_po$raindq,
-                                                        rugged = dat_po$rugged,
-                                                        soildepth = dat_po$soildepth,
-                                                        soilfert2 = fixed.po$soilfert2,
-                                                        soilfert3 = fixed.po$soilfert3,
-                                                        solrad = dat_po$solrad,
-                                                        tempann = dat_po$tempann,
-                                                        tempmin = dat_po$tempmin,
-                                                        topo = dat_po$topo
-                                      ),
+                                      effects=list(as.list(fixed.po),
                                       list(uns_field=1:spde$n.spde, bias_field = 1:spde$n.spde)),
-                                      A=list(1,A.pp),
+                                      A=list(1, A.pp),
                                       tag="po_data")
   
   # stack for structured data
   # note intercept with different name
+  # stk_structured_data <- inla.stack(data=list(y=cbind(NA, dat_pa$occ), Ntrials = rep(1, nrow(dat_pa))),
+  #                                   effects=list(list(data.frame(interceptA=rep(1,nrow(dat_pa))),
+  #                                                     cti = dat_pa$cti,
+  #                                                     disturb2 = fixed.pa$disturb2,
+  #                                                     disturb3 = fixed.pa$disturb3,
+  #                                                     disturb4 = fixed.pa$disturb4,
+  #                                                     mi = dat_pa$mi,
+  #                                                     rainann = dat_pa$rainann,
+  #                                                     raindq = dat_pa$raindq,
+  #                                                     rugged = dat_pa$rugged,
+  #                                                     soildepth = dat_pa$soildepth,
+  #                                                     soilfert2 = fixed.pa$soilfert2,
+  #                                                     soilfert3 = fixed.pa$soilfert3,
+  #                                                     solrad = dat_pa$solrad,
+  #                                                     tempann = dat_pa$tempann,
+  #                                                     tempmin = dat_pa$tempmin,
+  #                                                     topo = dat_pa$topo
+  #                                   ),
+  #                                   list(str_field=1:spde$n.spde)),
+  #                                   A=list(1,structured_data_A),
+  #                                   tag="pa_data")
+  
   stk_structured_data <- inla.stack(data=list(y=cbind(NA, dat_pa$occ), Ntrials = rep(1, nrow(dat_pa))),
-                                    effects=list(list(data.frame(interceptA=rep(1,nrow(dat_pa))),
-                                                      cti = dat_pa$cti,
-                                                      disturb2 = fixed.pa$disturb2,
-                                                      disturb3 = fixed.pa$disturb3,
-                                                      disturb4 = fixed.pa$disturb4,
-                                                      mi = dat_pa$mi,
-                                                      rainann = dat_pa$rainann,
-                                                      raindq = dat_pa$raindq,
-                                                      rugged = dat_pa$rugged,
-                                                      soildepth = dat_pa$soildepth,
-                                                      soilfert2 = fixed.pa$soilfert2,
-                                                      soilfert3 = fixed.pa$soilfert3,
-                                                      solrad = dat_pa$solrad,
-                                                      tempann = dat_pa$tempann,
-                                                      tempmin = dat_pa$tempmin,
-                                                      topo = dat_pa$topo
-                                    ),
+                                    effects=list(as.list(fixed.pa),
                                     list(str_field=1:spde$n.spde)),
                                     A=list(1,structured_data_A),
                                     tag="pa_data")
   
+  if (with.predictions) {
+    fixed.pred <- data.frame(get.design.matrix(form, domain))
+    colnames(fixed.pred)[1] <- "interceptA"
+    # make prediction stack
+    stk_pred_response <- inla.stack(data=list(y=cbind(rep(NA, np), rep(NA, np))),
+                                    effects = list(as.list(fixed.pred), list(uns_field=1:spde$n.spde)),
+                                    A=list(1, pred_data_A),
+                                    tag='pred_response')
+  }
+
   # combine the stacks
-  stk <- inla.stack(stk_unstructured_data, stk_structured_data)
+  if (with.predictions) {
+    stk <- inla.stack(stk_unstructured_data, stk_structured_data, stk_pred_response)
+  } else {
+    stk <- inla.stack(stk_unstructured_data, stk_structured_data)
+  }
+  
+  # update the formula
+  facts <- all.vars(form[[3]])[all.vars(form[[3]]) %in% c("soilfert", "disturb")]
+  fact.contrasts <- NULL
+  for (i in facts) {
+    fact.contrasts <- c(fact.contrasts, paste0(i, levels(domain[,i])[-1]))
+  }
+  fx <- paste(c(all.vars(form[[3]])[!all.vars(form[[3]]) %in% c("soilfert", "disturb")], fact.contrasts), collapse = " + ") # help!
+  
+  fx <- paste(unique(c(colnames(fixed.pa), colnames(fixed.po))), collapse = " + ")
+  
+  # new.form <- as.formula(paste0(paste(deparse(form), collapse = ""), paste0(" + factor(source) + s(x, y, bs = 'gp', k = ", fld_dim, ", m = c(3, rho_pa)) + s(x, y, bs = 'gp', k = ", bias_fld_dim, ", by = po_id, m = c(3, rho_po))")))
+  new.form <- as.formula(paste0("y ~ ", fx, " + interceptA + interceptB + f(uns_field, model = spde) + f(str_field, copy = 'uns_field', fixed = TRUE) + f(bias_field, model = spde) -1"))
+  
   
   # fit the model
-  result <- inla(y ~ interceptA + interceptB + cti + disturb2 + disturb3 + disturb4 + mi + rainann + raindq + rugged + soildepth + 
-                   soilfert2 + soilfert3 + solrad + tempann + tempmin + topo + I(cti^2) + 
-                   I(mi^2) + I(rainann^2) + I(raindq^2) + I(rugged^2) + I(soildepth^2) + 
-                   I(solrad^2) + I(tempann^2) + I(tempmin^2) + I(topo^2) + 
-                   f(uns_field, model = spde) + f(str_field, copy = "uns_field", fixed = TRUE) + f(bias_field, model = spde) -1,
+  result <- inla(new.form,
                  family=c("poisson", "binomial"),
                  data=inla.stack.data(stk),
                  control.predictor=list(A=inla.stack.A(stk), compute=TRUE),
@@ -113,6 +175,13 @@ idm_inla <- function(form, dat_pa, dat_po, domain){
                  Ntrials = inla.stack.data(stk)$Ntrials,
                  control.compute = list(cpo=TRUE, waic = TRUE, dic = TRUE)
   )
+  
+  if (with.predictions) {
+    # create index to extract predictions
+    index.pred.response <- inla.stack.index(stk, tag="pred_response")$data
+    # get the predictions
+    result$preds <- exp(result$summary.fitted.values$mean[index.pred.response])
+  }
   
   return(result)
 }
