@@ -1,12 +1,10 @@
-## Analyse Scenario ##
+## Collate and Visual Results from the simulation ##
 
 library(dplyr)
 library(ggplot2)
 
-# toggle for all simulations or just those for the main paper
-# res_type <- ""
+# sets which results to compile - the following corresponds to the scenario presented in the main paper
 res_type <- "_all"
-# res_type <- "_all_short"
 
 home.wd <- getwd()
 # Get the job array
@@ -62,15 +60,10 @@ ggplot(dat, aes(y = KL, x = Fit, fill = Fit)) +
 ## REPORTING  RESULTS ##########################################################
 
 plot.res <- 500
-baseline_fld_dim <- 100
-# baseline_fld_dim <- 300 # for example within _all_short that shows the need for optimising spatial range
+baseline_fld_dim <- 100 # shows a typcial results across simulation scenarios
 kl.lims <- range(dat$KL[dat$KL < 1e5]) # this better captures some "outliers" identified by default boxplot()
 mae.lims <- range(dat$MAE) # this better captures some "outliers" identified by default boxplot()
 time.lims <- range(dat$TIME) # likewise exclude these from recorded timing
-
-# fill_cols <- c("darkorange1", "dodgerblue1", "aquamarine4", "aquamarine2")
-fill_cols <- c("darkorange1", "dodgerblue3", "aquamarine4", "darkorchid4")
-fill_cols <- rep("black", 4)
 
 # subset to just the IDM
 plotdat <- dat[dat$MODEL == "IDM" & dat$fld_dim == baseline_fld_dim & dat$Fit != "scampr (opt. k)", ]
@@ -79,8 +72,8 @@ plotdat$Fit <- factor(plotdat$Fit, levels = c("INLA", "scampr", "mgcv (def.)", "
 # for text look at the total computation times
 plotdat %>% group_by(Fit) %>% summarise(sum(TIME))
 
+# set the colours to be used in plots - differently if requiring grey-scale or not
 make.grey.scale <- FALSE
-
 if (make.grey.scale) {
   fill_cols <- rep("black", 4)
 } else {
@@ -131,59 +124,6 @@ par(mfrow = c(1,1), mar = c(5.1,4.1,4.1,2.1))
 
 dev.off()
 
-## Plot for all models in the baseline scenario ################################
-
-baseline_kl.lims <- range(dat$KL[dat$fld_dim == baseline_fld_dim]) # this better captures some "outliers" identified by default boxplot()
-baseline_mae.lims <- range(dat$MAE[dat$fld_dim == baseline_fld_dim]) # this better captures some "outliers" identified by default boxplot()
-baseline_time.lims <- range(dat$TIME[dat$fld_dim == baseline_fld_dim]) # likewise exclude these from recorded timing
-fill_cols <- c("darkorange1","dodgerblue1","dodgerblue4", "aquamarine4", "aquamarine2")
-fill_cols <- c("darkorange1", "dodgerblue1","dodgerblue4", "aquamarine4", "darkorchid4")
-
-png(filename = paste0(getwd(), "/Figures/baseline_comparison_of_models.png"), width = 6.2 * plot.res, height = 6 * plot.res, res = plot.res)
-layout(mat = matrix(c(1:9, rep(10, 3)), nrow = 3, ncol = 4), heights = rep(1/3, 3), widths = c(rep(0.825/3, 3),0.175))
-
-for (i in 1:3) {
-  
-  # set some panel-specific stuff
-  tmp.mod <- c("IDM", "PA", "PO")[i]
-  
-  # timing
-  par(mar = c(0, 3.5, 2.1, 0))
-  boxplot(TIME ~ Fit, data = dat[dat$MODEL == tmp.mod & dat$fld_dim == baseline_fld_dim, ],
-          log = "y", col = alpha(fill_cols, 0.25), xaxt = "n", ylim = baseline_time.lims,
-          yaxt = "n", ylab = "", border = fill_cols, outline = F
-  )
-  if (i == 1) {axis(2, at = c(0.5, 2, 5, 20, 60) , labels = c("0.5''", "2''", "5''", "20''", "1'"))}
-  if (i == 1) {title(ylab = "Comp. Time", cex.lab = 1, line = 2.5)}
-  mtext(if (i == 1) {tmp.mod} else {paste(tmp.mod, "Only Model")}, side = 3, line = 1.5, adj = 0, padj = 1)
-  # title(if (i == 1) {tmp.mod} else {paste(tmp.mod, "Only Model")}, side = 3, line = 1)
-  
-  # accuracy KLD
-  par(mar = c(0, 3.5, 2.1, 0))
-  boxplot(KL ~ Fit, data = dat[dat$MODEL == tmp.mod & dat$fld_dim == baseline_fld_dim, ],
-          log = "y", col = alpha(fill_cols, 0.25), xlab = "", ylim = baseline_kl.lims,
-          xaxt = "n", yaxt = "n", ylab = "", border = fill_cols#, outline = F
-  )
-  if (i == 1) {axis(2, at = c(50, 150, 500, 2500, 10000) , labels = c(50, 150, 500, 2500, "10K"))}
-  if (i == 1) {title(ylab = expression(paste(D[KL], "(", mu, " || ", hat(mu), ")")), cex.lab = 1, line = 2.5)}
-  
-  # accuracy MAE
-  par(mar = c(0, 3.5, 2.1, 0))
-  boxplot(MAE ~ Fit, data = dat[dat$MODEL == tmp.mod & dat$fld_dim == baseline_fld_dim, ], log = "y", ylim = baseline_mae.lims, 
-          col = alpha(fill_cols, 0.25), xlab = "", xaxt = "n", ylab = "", border = fill_cols, yaxt = "n"
-  )
-  if (i == 1) {axis(2, at = c(0.05, 0.15, 0.4, 1), labels = c(0.05, 0.15, 0.4, 1))}
-  if (i == 1) {title(ylab = expression(paste(MAE, " (", mu, " - ", hat(mu), ")")), cex.lab = 1, line = 2.5)}
-}
-par(mar = rep(0, 4))
-plot(1, type = "n", axes = F) # dummy
-legend("center", title = "Fitted via:",
-       legend = levels(dat$Fit), pt.bg = alpha(fill_cols, 0.25),
-       col = fill_cols, pch = 22, bty = "n", xpd = T, cex = 1.1)
-par(mfrow = c(1,1), mar = c(5.1,4.1,4.1,2.1))
-
-dev.off()
-
 # comparison over different basis dimensions ###################################
 
 tmp1 <- dat[,c("fld_dim", "sim", "Fit", "MODEL", "KL")]
@@ -221,7 +161,7 @@ left_mars <- c(left_base_mar, left_base_mar * (2/3), left_base_mar / 3, 0)
 right_mars <- rev(left_mars)
 fit_cols <- c("darkorange1", "dodgerblue3", "aquamarine4", "darkorchid4")
 
-png(filename = paste0(getwd(), "/Figures/comparison_of_bf_dim.png"), width = 6.2 * plot.res, height = 5.2 * plot.res, res = plot.res)
+png(filename = paste0(getwd(), "/Figures/comparison_of_basis_dim.png"), width = 6.2 * plot.res, height = 5.2 * plot.res, res = plot.res)
 layout(mat = rbind(matrix(1:12, nrow = 3, ncol = 4), rep(13, 4)), heights = c(rep(0.9/3, 3), 0.1), widths = rep(1/4, 4))
 for (k in 1:length(ks)) {
   # timing
@@ -242,7 +182,7 @@ for (k in 1:length(ks)) {
   )
   if (k == 1) {axis(2, at = c(50, 150, 500, 1500) , labels = c(50, 150, 500, 1500))}
   if (k == 1) {title(ylab = expression(paste(D[KL], "(", mu, " || ", hat(mu), ")")), cex.lab = 1.25, line = 2.5)}
-  # beta esitimation
+  # beta estimation
   par(mar = c(0, left_mars[k], 2.1, right_mars[k]))
   plot(1:length(beta.est$Fit[beta.est$fld_dim == ks[k]]), beta.est$rmse[beta.est$fld_dim == ks[k]],
        ylim = beta.lims, pch = 16, col = fit_cols, yaxt = "n", xaxt = "n", ylab = "", xlab = "",
@@ -256,7 +196,7 @@ for (k in 1:length(ks)) {
 }
 par(mar = c(0,0,1,0))
 plot(1, type = "n", axes = F) # dummy
-legend("center", title = "IDM fitted via:", legend = levels(idat$Fit), horiz = T,
+legend("center", title = "ISDM fitted via:", legend = levels(idat$Fit), horiz = T,
        col = fit_cols, pch = 22, pt.bg = alpha(fit_cols, 0.25), bty = "n", xpd = T, cex = 1.35)
 par(mfrow = c(1,1), mar = c(5.1,4.1,4.1,2.1))
 
@@ -288,154 +228,52 @@ dat_short$FIT[dat_short$FIT == "SCAMPR FIXED"] <- "SCAMPR"
 #                     levels = c("INLA PA", "SCAMPR PA", "SCAMPR2 PA", "INLA IDM", "SCAMPR IDM", "SCAMPR2 IDM", "INLA PO", "SCAMPR PO", "SCAMPR2 PO"))
 dat_short$fit_model[dat_short$fit_model %in% c("INLA PA", "INLA PO", "INLA IDM")] <- "INLA"
 dat_short$Fit <- factor(dat_short$fit_model,
-                  levels = c("INLA", "SCAMPR FIXED", "SCAMPR", "MGCV FIXED", "MGCV"),
-                  labels = c("INLA", "scampr", "scampr (opt. k)","mgcv (def.)", "mgcv (opt.)")
+                        levels = c("INLA", "SCAMPR FIXED", "SCAMPR", "MGCV FIXED", "MGCV"),
+                        labels = c("INLA", "scampr", "scampr (opt. k)","mgcv (def.)", "mgcv (opt.)")
 )
 
 # get the rates of failure to converge or other problems
 fail.rates.timing_short <- dat_short %>% group_by(MODEL, FIT, BASIS_TYPE) %>%
   summarise(poor.conv.kl = sum(!(KL < 1e5 & !is.na(KL))), poor.conv.mae = sum(!(MAE < 1e5 & !is.na(MAE))), cpu = mean(TIME), fails = 100 - length(unique(sim)))
 
-plot.res <- 500
-baseline_fld_dim <- 300 # for example within _all_short that shows the need for optimising spatial range
-kl.lims <- range(dat_short$KL[dat$KL < 1e5]) # this better captures some "outliers" identified by default boxplot()
-mae.lims <- range(dat_short$MAE) # this better captures some "outliers" identified by default boxplot()
-time.lims <- range(dat_short$TIME) # likewise exclude these from recorded timing
+idat_short <- dat_short %>% filter(MODEL == "IDM" & is.finite(KL) & Fit != "scampr (opt. k)")
+idat_short$Fit <- factor(idat_short$Fit, levels = c("INLA", "scampr", "mgcv (def.)", "mgcv (opt.)"))
+kl.lims_short <- range(idat_short$KL)
 
-# fill_cols <- c("darkorange1", "dodgerblue1", "aquamarine4", "aquamarine2")
-fill_cols <- c("darkorange1", "dodgerblue3", "aquamarine4", "darkorchid4")
-
-# subset to just the IDM
-plotdat <- dat_short[dat_short$MODEL == "IDM" & dat_short$fld_dim == baseline_fld_dim & dat_short$Fit != "scampr (opt. k)", ]
-plotdat$Fit <- factor(plotdat$Fit, levels = c("INLA", "scampr", "mgcv (def.)", "mgcv (opt.)"))
-plotdat <- dat_short[dat_short$MODEL == "IDM" & dat_short$fld_dim == baseline_fld_dim, ]
-
-beta.est <- dat_short %>% filter(fld_dim == 300 & dat_short$Fit != "scampr (opt. k)") %>% group_by(Fit) %>% summarise(rmse = sqrt(mean((BETA_ENV - 1)^2)), std = sd((BETA_ENV - 1)^2))
-beta.est <- dat_short %>% filter(fld_dim == 300) %>% group_by(Fit) %>% summarise(rmse = sqrt(mean((BETA_ENV - 1)^2)), std = sd((BETA_ENV - 1)^2))
-beta.est$upper <- beta.est$rmse + beta.est$std
-beta.est$lower <- beta.est$rmse - beta.est$std
-beta.lims <- range(beta.est$upper, beta.est$lower)
-
-# for text look at the total computation times
-plotdat %>% group_by(Fit) %>% summarise(sum(TIME))
-
-make.grey.scale <- FALSE
-
-if (make.grey.scale) {
-  fill_cols <- rep("black", 4)
-} else {
-  fill_cols <- c("darkorange1", "dodgerblue3", "aquamarine4", "darkorchid4")
+png(filename = paste0(getwd(), "/Figures/comparison_of_long_and_short_range.png"), width = 6.2 * plot.res, height = 5.2 * plot.res, res = plot.res)
+layout(mat = rbind(matrix(1:8, nrow = 2, ncol = 4), rep(9, 4)), heights = c(rep(0.9/2, 2), 0.1), widths = rep(1/4, 4))
+for (k in 1:length(ks)) {
+  # accuracy KLD - long range latent
+  par(mar = c(0, left_mars[k], 2.1, right_mars[k]))
+  boxplot(KL ~ Fit, data = idat[idat$fld_dim == ks[k], ],
+          log = "y", col = alpha(fit_cols, 0.15), xlab = "", ylim = kl.lims,
+          xaxt = "n", yaxt = "n", ylab = "", border = fit_cols
+  )
+  if (k == 1) {axis(2, at = c(50, 150, 500, 1500) , labels = c(50, 150, 500, 1500))}
+  if (k == 1) {title(ylab = expression(paste(D[KL], "(", mu, " || ", hat(mu), ")")), cex.lab = 1.25, line = 2.5)}
+  mtext(paste("k = ", ks[k]), side = 3, line = 1.5, adj = 0, padj = 1)
+  if (k == 4) {mtext("Coarse scale latent range", side = 4, line = 0, adj = Inf, padj = 1)}
+  if (k == 4) {mtext(expression(rho[X]<rho[xi]), side = 4, line = 2, adj = Inf, padj = 1)}
+  # accuracy KLD - short range latent
+  par(mar = c(0, left_mars[k], 2.1, right_mars[k]))
+  boxplot(KL ~ Fit, data = idat_short[idat_short$fld_dim == ks[k], ],
+          log = "y", col = alpha(fit_cols, 0.15), xlab = "", ylim = kl.lims_short,
+          xaxt = "n", yaxt = "n", ylab = "", border = fit_cols
+  )
+  if (k == 1) {axis(2, at = c(50, 150, 500, 1500) , labels = c(50, 150, 500, 1500))}
+  if (k == 1) {title(ylab = expression(paste(D[KL], "(", mu, " || ", hat(mu), ")")), cex.lab = 1.25, line = 2.5)}
+  if (k == 4) {mtext("Fine scale latent range", side = 4, line = 0, adj = Inf, padj = 1)}
+  if (k == 4) {mtext(expression(rho[X]>rho[xi]), side = 4, line = 2, adj = Inf, padj = 1)}
 }
-
-png(filename = paste0(getwd(), "/Figures/baseline_comparison_short_latent_range.png"), width = 6.2 * plot.res, height = 6.2 * plot.res, res = plot.res)
-layout(mat = matrix(c(1:3, 3), nrow = 3, ncol = 1), heights = rep(1/3, 3))
-# par(mfrow = c(2, 1))
-
-# timing
-par(mar = c(1.5, 4.1, 2.1, 0))
-boxplot(TIME ~ Fit, data = plotdat,
-        log = "y", col = alpha(fill_cols, 0.25), xaxt = "n", #ylim = time.lims, 
-        ylab = "", border = fill_cols, outline = F, yaxt = "n"
-)
-title(ylab = expression(" Comp. Time"), cex.lab = 1, line = 3)
-axis(2, at = c(2, 5, 10, 30, 60) , labels = c("2''", "5''", "10''", "30''", "1'"))
-mtext("A", side = 3, line = 1.5, adj = 0, padj = 1)
-
-# accuracy
-par(mar = c(2, 4.1, 1.5, 0))
-boxplot(KL ~ Fit, data = plotdat,
-        log = "y", col = alpha(fill_cols, 0.25), xlab = "",
-        xaxt = "n", yaxt = "n", ylab = "", border = fill_cols#, outline = F
-)
-axis(2, at =c(50, 150, 500, 1500, 5000) , labels = c(50, 150, 500, 1500, 5000))
-title(ylab = expression(paste(D[KL], "(", mu, " || ", hat(mu), ")")), cex.lab = 1, line = 3)
-mtext("B", side = 3, line = 1.5, adj = 0, padj = 1)
-
-# coverage
-plot(1:length(beta.est$Fit), beta.est$rmse,
-     ylim = beta.lims, pch = 16, col = fit_cols, yaxt = "n", xaxt = "n", ylab = "", xlab = "",
-     xlim = c(0.5, length(beta.est$Fit) + 0.5))
-arrows(x0 = 1:length(beta.est$Fit),
-       y0 = beta.est$upper,
-       y1 = beta.est$lower,
-       angle = 90, length = 0.05, code = 3, col = fit_cols)
-axis(1, at = 1:length(levels(plotdat$Fit)) , labels = levels(plotdat$Fit))
-if (!make.grey.scale) {
-  par(xpd = T)
-  points(x = 1:length(levels(plotdat$Fit)) - c(0.25, 0.35, 0.45, 0.45), y = rep(19, length(levels(plotdat$Fit))),
-         pch = 22, col = fill_cols, bg = alpha(fill_cols, 0.25))
-  par(xpd = F)
-}
-
+par(mar = c(0,0,1,0))
+plot(1, type = "n", axes = F) # dummy
+legend("center", title = "IDM fitted via:", legend = levels(idat_short$Fit), horiz = T,
+       col = fit_cols, pch = 22, pt.bg = alpha(fit_cols, 0.25), bty = "n", xpd = T, cex = 1.35)
 par(mfrow = c(1,1), mar = c(5.1,4.1,4.1,2.1))
 
 dev.off()
 
-## For ESA talk ################################################################
-
-# subset to just the IDM
-plotdat <- dat[dat$MODEL == "IDM" & dat$fld_dim == 100 & !(dat$Fit %in% c("scampr (opt. k)", "mgcv (opt.)")), ]
-plotdat$Fit <- factor(plotdat$Fit, levels = c("INLA", "mgcv (def.)", "scampr"), labels = c("R-INLA", "mgcv", "scampr"))
-
-# for text look at the total computation times
-plotdat %>% group_by(Fit) %>% summarise(sum(TIME))
-
-beta.est <- plotdat %>% group_by(fld_dim, Fit) %>% summarise(rmse = sqrt(mean((BETA_ENV - 1)^2)), std = sd((BETA_ENV - 1)^2))
-beta.est$upper <- beta.est$rmse + beta.est$std
-beta.est$lower <- beta.est$rmse - beta.est$std
-
-
-make.grey.scale <- FALSE
-
-if (make.grey.scale) {
-  fill_cols <- rep("black", 3)
-} else {
-  fill_cols <- c("darkorange1", "aquamarine4", "dodgerblue3")
-}
-plot.res <- 500
-png(filename = paste0(getwd(), "/Figures/esa_sim_res.png"), width = 6.2 * plot.res, height = 5.2 * plot.res, res = plot.res)
-# layout(mat = matrix(c(1:3, 3), nrow = 2, ncol = 2), heights = c(0.5,0.5), widths = c(0.8,0.2))
-par(mfrow = c(2, 1))
-
-# timing
-par(mar = c(0.5, 4.1, 0, 0))
-boxplot(TIME ~ Fit, data = plotdat,
-        log = "y", col = alpha(fill_cols, 0.25), xaxt = "n", #ylim = time.lims, 
-        ylab = "", border = fill_cols, outline = F, yaxt = "n"
-)
-# title(ylab = expression(" Comp. Time"), cex.lab = 1, line = 3)
-axis(2, at = c(3, 5, 10, 20, 60) , labels = c("3''", "5''", "10''", "20''", "1'"))
-# mtext("Speed", side = 3, line = 1, adj = 0, padj = 1)
-
-# accuracy
-par(mar = c(0, 4.1, 0.5, 0))
-boxplot(KL ~ Fit, data = plotdat,
-        log = "y", col = alpha(fill_cols, 0.25), xlab = "",
-        xaxt = "n", yaxt = "n", ylab = "", border = fill_cols#, outline = F
-)
-# boxplot(MAE ~ Fit, data = plotdat,
-#         log = "y", col = alpha(fill_cols, 0.25), xlab = "",
-#         xaxt = "n", ylab = "", border = fill_cols#, outline = F, yaxt = "n", 
-# )
-axis(2, at =c(50, 150, 500, 1500, 5000) , labels = c(50, 150, 500, 1500, 5000))
-# title(ylab = expression(paste(D[KL], "(", mu, " || ", hat(mu), ")")), cex.lab = 1, line = 3)
-# mtext("Accuracy", side = 3, line = 1, adj = 0, padj = 1)
-# axis(1, at = 1:length(levels(plotdat$Fit)) , labels = levels(plotdat$Fit))
-# par(xpd = T)
-# if (!make.grey.scale) {
-#   points(x = 1:length(levels(plotdat$Fit)) - c(0.25, 0.35, 0.45), y = rep(19, length(levels(plotdat$Fit))),
-#          pch = 22, col = fill_cols, bg = alpha(fill_cols, 0.25))
-# }
-# par(mar = rep(0, 4), xpd = F)
-# plot(1, type = "n", axes = F) # dummy
-# legend("center", title = "IDM fitted via:",
-#        legend = levels(plotdat$Fit),
-#        col = fill_cols, pch = 15, bty = "n")
-par(mfrow = c(1,1), mar = c(5.1,4.1,4.1,2.1), xpd = F)
-
-dev.off()
-
-# for reporting in text and appendices # OLD
+# for reporting in text and appendices
 plotdat[plotdat$KL > 1e5, ]
 plotdat[plotdat$TIME > time.lims[2] | plotdat$TIME < time.lims[1], ]
 sim1.tab <- dat %>% group_by(FIT, MODEL, scenario) %>%
